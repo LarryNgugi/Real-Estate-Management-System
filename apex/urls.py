@@ -13,13 +13,20 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls.conf import path,include
+from django.urls import path
+from django.urls.conf import include
+from apex import views
 
+
+staff_patterns = [
+    path('feedback', views.showFeedback, name='feedback'),
+
+]
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('apex.urls')),
+    path('staff/', include(staff_patterns)),
+    path('', views.home, name='home'),
+    path('contact/',views.contact, name="contact"),
+    path ('save_feedback',views.saveFeedback, name = "save_feedback")
 
-    
 ]
