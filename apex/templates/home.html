@@ -2,7 +2,18 @@
 
 {% load static %}
 
+  
+
 {% block 'content' %}
+
+{% block 'css' %}
+
+  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,600" rel="stylesheet">
+  <link rel="stylesheet" href=" {% static 'css/style.css' %} ">
+  <script src="https://unpkg.com/animejs@3.0.1/lib/anime.min.js"></script>
+  <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+
+  {% endblock 'css' %}
 
 <body class="is-boxed has-animations">
     <div class="body-wrap">
@@ -29,7 +40,7 @@
 	                        <p class="hero-paragraph">Our landing page template works on all devices, so you only have to set it up once, and get beautiful results forever.</p>
 	                        <div class="hero-cta">
                                 <a class="button button-primary" type="submit" href="#">Login </a>
-                                <a class="button" type="submit" href="#">Get in touch</a></div>
+                                <a class="button" type="submit"  href="#">Get in touch</a></div>
 						</div>
 						<div class="hero-figure anime-element">
 							<svg class="placeholder" width="528" height="396" viewBox="0 0 528 396">
@@ -90,7 +101,9 @@
 
 {% endblock %}
 
-{%block 'scripts' %}
+{% block 'scripts' %}
+
+
 
 
 {% endblock %}

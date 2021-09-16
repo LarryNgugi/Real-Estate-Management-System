@@ -41,3 +41,10 @@ def showFeedback(request):
     context['feedback_list'] = Feedback.objects.all()
 
     return render(request, 'apex/admin/feedback.html', context)
+    
+def deleteFeedback (request,id):
+
+    our_feedback = Feedback.objects.get(pk = id)
+    our_feedback.delete()
+
+    return HttpResponseRedirect('/staff/feedback')

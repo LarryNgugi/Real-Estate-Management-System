@@ -17,7 +17,7 @@
             
             <div class="card-body">
 
-                <table class="table table-striped">
+                <table class="table table-striped  table-bordered">
                     <thead>
                         <tr>
                             <td>id</td>
@@ -26,6 +26,8 @@
                             <td>Phone Number</td>
                             <td>Message</td>
                             <td>Posted at</td>
+                            <td>Action</td>
+
 
                         </tr>
                     </thead>
@@ -41,7 +43,14 @@
                             <td>{{feedback.phone_number}}</td>
                             <td>{{feedback.message}}</td>
                             <td>{{feedback.created_at}}</td>
+                            <td>
+                                <a href=" {% url 'delete_feedback' feedback.id %} " class="btn btn-danger btn-sm">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                                
+                            </td>
 
+                            
                         </tr>
 
                         {% endfor %}
