@@ -75,7 +75,7 @@
     </div>
     <div class="container-contact100">
         <div class="wrap-contact100">
-            <form class="contact100-form validate-form" action=" {% url 'save_feedback' %} " method="POST" id="contactForm">
+            <form class="contact100-form validate-form" action=" {% url 'save_feedback' %} " method="POST" >
                 {% csrf_token %}
                 <span class="contact100-form-title">
                     Send Us A Message
@@ -99,7 +99,7 @@
 
                 <label class="label-input100" for="phone">Enter phone number</label>
                 <div class="wrap-input100">
-                    <input id="phone" class="input100" type="text" name="phone_number" placeholder="Eg. +1 800 000000">
+                    <input id="phone" class="input100" type="text" name="number" placeholder="Eg. +254 800 000000">
                     <span class="focus-input100"></span>
                 </div>
 
