@@ -9,13 +9,16 @@
 {% block 'css' %}
 
   <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,600" rel="stylesheet">
-  <link rel="stylesheet" href=" {% static 'css/style.css' %} ">
+  <link rel="stylesheet" href=" {% static 'css/home/style.css' %} ">
   <script src="https://unpkg.com/animejs@3.0.1/lib/anime.min.js"></script>
   <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
 
-  {% endblock 'css' %}
+{% endblock 'css' %}
+
+
 
 <body class="is-boxed has-animations">
+
     <div class="body-wrap">
         <header class="site-header">
             <div class="container">
@@ -23,7 +26,7 @@
                     <div class="brand header-brand">
                         <h1 class="m-0">
 							<a href="#">
-								<img class="header-logo-image" src=" {% static 'images/logo.svg' %} " alt="Logo">
+								<img class="header-logo-image" src=" {% static 'images/home/logo.svg' %} " alt="Logo">
                             </a>
                         </h1>
                     </div>
@@ -69,12 +72,12 @@
                 <div class="site-footer-inner">
                     <div class="brand footer-brand">
 						<a href="#">
-							<img class="header-logo-image" src="{% static 'images/logo.svg' %}" alt="Logo">
+							<img class="header-logo-image" src="{% static 'images/home/logo.svg' %}" alt="Logo">
 						</a>
                     </div>
                     <ul class="footer-links list-reset">
                         <li>
-                            <a href="#">Contact</a>
+                            <a href="contact">Contact</a>
                         </li>
                         <li>
                             <a href="#">About us</a>

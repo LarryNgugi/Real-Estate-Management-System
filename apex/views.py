@@ -23,12 +23,13 @@ def contact(request):
 
 def saveFeedback(request):
 
-    name = request.POST.get("name")
+    first_name = request.POST.get("first_name")
+    last_name = request.POST.get("last_name")
     email = request.POST.get("email")
     phone_number = request.POST.get("number")
     message = request.POST.get("message")
 
-    Feedback.objects.create(name=name, email=email,phone_number=phone_number, message=message)
+    Feedback.objects.create(first_name=first_name,last_name=last_name, email=email,phone_number=phone_number, message=message)
 
     context = {}
 
