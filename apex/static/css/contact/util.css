@@ -2983,14 +2983,6 @@
 	bottom: 0px;
 }
 
-#back {
-    background-image:url('{{  static }}images/contact/bg-01.jpg');
-	background-image: url( "{% static 'images/contact/bg-01.jpg' %}");
-    background-repeat:no-repeat;
-    background-size:100%;
-	
-  }
-
 
 
 
