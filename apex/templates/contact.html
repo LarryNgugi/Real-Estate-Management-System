@@ -45,12 +45,13 @@
         
         
     </div>
-    <div class="container-contact100 bg-dark">
+    
+    <div class="container-contact100">
         <div class="wrap-contact100">
             <form class="contact100-form validate-form" action=" {% url 'save_feedback' %} " method="POST" >
                 {% csrf_token %}
                 <span class="contact100-form-title">
-                    Send Us A Message
+                    Send Us A Message.
                 </span>
 
                 <label class="label-input100" for="first-name">Tell us your name *</label>
