@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Feedback
+from .models import Feedback, Profile
+from django.views.generic.edit import CreateView
 
 # Create your views here.
 def home(request):
@@ -58,3 +59,10 @@ def deleteFeedback (request,id):
     our_feedback.delete()
 
     return HttpResponseRedirect('/staff/feedback')
+
+
+class ProfileCreate(CreateView):
+    model = Profile
+    template_name = 'apex/admin/profile_form.html'
+    fields = "__all__"
+    success_url = '/staff/profile'

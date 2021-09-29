@@ -1,5 +1,6 @@
 from django.db import models
 
+    
 # Create your models here.
 
 class Feedback (models.Model):
@@ -15,11 +16,9 @@ class Feedback (models.Model):
         verbose_name_plural = 'Feedback'
 
 class Profile (models.Model):
-    tenant_name = models.CharField(max_length=100,blank=False,null=True)
-    tenant_phone_number = models.IntegerField(blank=False,null=True)
-    tenant_house_number = models.CharField(max_length=50,blank=False,null=True)
-    other_name = models.CharField(max_length=100,blank=False,null=True)
-    other_phone_number = models.IntegerField(blank=False,null=True)
+    Full_name = models.CharField(max_length=100,blank=False,null=True)
+    phone_number = models.IntegerField(blank=False,null=True)
+    house_number = models.CharField(max_length=50,blank=False,null=True)
     amount = models.IntegerField(blank=False,null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
