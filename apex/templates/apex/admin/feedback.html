@@ -9,14 +9,18 @@
 
     <h3 class="mx-3 "> Feedback ({{feedback_list|length}}) </h3>
 
-    <div class="row justify-content-center">
+    <h5 class="text-center mt-4 ">Your Messages</h5>
 
-        <div class="col-lg-10">
 
-            <h5 class="text-center ">Your Messages</h5>
+    <div class="row ">
+
+        <div class="col-lg-4">
+
             
             <div class="card-body">
 
+
+                
                 <table class="table table-striped  table-bordered">
                     <thead>
                         <tr>
@@ -25,8 +29,6 @@
                             <td>Last Name</td>
                             <td>Email</td>
                             <td>Phone Number</td>
-                            <td>Message</td>
-                            <td>Posted at</td>
                             <td>Action</td>
 
 
@@ -43,10 +45,9 @@
                             <td>{{feedback.last_name}}</td>
                             <td>{{feedback.email}}</td>
                             <td>{{feedback.phone_number}}</td>
-                            <td>{{feedback.message}}</td>
-                            <td>{{feedback.created_at}}</td>
+
                             <td>
-                                <a href=" {% url 'delete_feedback' feedback.id %} " class="btn btn-danger btn-sm">
+                                <a href=" {% url 'delete_feedback' feedback.id %} " title="Delete" class="btn btn-danger btn-sm">
                                     <i class="fa fa-trash"></i>
                                 </a>
                                 
@@ -60,11 +61,43 @@
                     </tbody>
 
                 </table>
+                
 
             </div>
         </div>
+
+
+       
     </div>
 
+    <div class="row">
+        
+        {% for feedback in feedback_list %}
+
+        <div class="col-lg-6 ">
+            <div class="card m-2 ">
+                <div class="card-body">
+                    
+                    <small class="font-weight-bold">  {{feedback.id}} </small>
+                
+                    <span class="ml-2">Feedback Received From: </span>
+                    <span class="font-weight-bold" > {{feedback.first_name}} {{feedback.last_name}} </span><br>
+                    <span class="ml-2" >Email: </span>
+                    <span class=" text-success font-weight-bold "> {{feedback.email}} </span>
+                    <p> {{feedback.message}} </p>
+                    <p class="text-success"> {{feedback.created_at}}</p>
+                   
+                </div>
+                
+            </div>
+        </div>
+
+        {% endfor %}
+
+    </div>
+   
+        
+       
 </div>
 
 
