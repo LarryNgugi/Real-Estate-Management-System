@@ -21,6 +21,7 @@ from apex import views
 staff_patterns = [
     path('feedback', views.showFeedback, name='feedback'),
     path('delete/feedback <id>',views.deleteFeedback,name='delete_feedback'),
+    path('profile',views.profile,name='profile'),
 
 
 ]

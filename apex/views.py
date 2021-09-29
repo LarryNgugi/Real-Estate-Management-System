@@ -21,6 +21,15 @@ def contact(request):
 
     return render(request, "contact.html", context)
 
+def profile(request):
+
+    context ={
+        
+    }
+
+    return render(request, "apex/admin/profile.html", context)
+
+
 def saveFeedback(request):
 
     first_name = request.POST.get("first_name")
