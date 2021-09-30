@@ -1,6 +1,6 @@
 from django import forms
 
-class profileForms(forms.Forms):
+class profileForms(forms.Form):
     name = forms.CharField(max_length=100)
     email = forms.EmailField(max_length=50)
     phone_number = forms.IntegerField(widget=forms.NumberInput)

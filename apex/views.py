@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Feedback, Profile
 from django.views.generic.edit import CreateView
+from apex.forms import profileForms
 
 # Create your views here.
 def home(request):
@@ -29,6 +30,29 @@ def profile(request):
     }
 
     return render(request, "apex/admin/profile.html", context)
+    
+
+def saveProfile(request):
+    form = profileForms
+    redirect_url ='/staff/profile'
+
+    if form.is_valid():
+
+        name = form.cleaned_data['name']
+        email = form.cleaned_data['email']
+        phone_number = form.cleaned_data['phone_number']
+        house_number = form.cleaned_data['house_number']
+
+        Profile.objects.create(name=name,email=email,phone_number=phone_number,house_number=house_number)
+
+        return HttpResponseRedirect(redirect_url)
+
+    else:
+
+        return HttpResponseRedirect(redirect_url)
+
+
+
 
 
 def saveFeedback(request):
@@ -61,8 +85,3 @@ def deleteFeedback (request,id):
     return HttpResponseRedirect('/staff/feedback')
 
 
-class ProfileCreate(CreateView):
-    model = Profile
-    template_name = 'apex/admin/profile_form.html'
-    fields = "__all__"
-    success_url = '/staff/profile'
