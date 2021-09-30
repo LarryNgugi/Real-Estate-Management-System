@@ -16,14 +16,13 @@ Including another URLconf
 from django.urls import path
 from django.urls.conf import include
 from apex import views
-from .views import ProfileCreate
 
 
 staff_patterns = [
     path('feedback', views.showFeedback, name='feedback'),
     path('delete/feedback <id>',views.deleteFeedback,name='delete_feedback'),
     path('profile',views.profile,name='profile'),
-    path('create/profile',ProfileCreate.as_view(),name='profile_form')
+    path('create/profile',views.saveProfile,name='profile_form')
 
 
 ]

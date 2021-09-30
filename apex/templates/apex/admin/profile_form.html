@@ -7,17 +7,44 @@
 
 {% block 'content' %}
 
-<div class="container">
+<div class="container-fluid">
 
     <h3 class="m-3">Create Tenant Profile</h3>
 
     <div class="row">
+
         <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="card-header">
                 <h5 class="text-center">Tenant Details</h5>
             </div>
 
             <div class="card-body">
+
+                <form action=" {% url 'profile_form' %} " method="POST">
+                    
+                    {% csrf_token %}
+
+                    {{ profileForms.as_p}}
+
+
+                        <button type="submit"  class="btn btn-secondary btn-lg">Submit</button>
+
+                </form>
+
+                
+               
+            </div>
+            
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-12">
+
+            <div class="card-header">
+                <h5 class="text-center">Next Of Kin Details</h5>
+            </div>
+
+            <div class="card-body">
+
                 <form action="" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
 
@@ -39,11 +66,17 @@
                         <button type="submit"  class="btn btn-secondary btn-lg">Submit</button>
 
                 </form>
-            </div>
 
+                
+               
+            </div>
+           
         </div>
     </div>
+
+    
 </div>
+
 
 
 
