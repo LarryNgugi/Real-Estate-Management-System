@@ -16,7 +16,8 @@ class Feedback (models.Model):
         verbose_name_plural = 'Feedback'
 
 class Profile (models.Model):
-    Full_name = models.CharField(max_length=100,blank=False,null=True)
+    name = models.CharField(max_length=100,blank=False,null=True)
+    email = models.EmailField(max_length=100,blank=True,null=True)
     phone_number = models.IntegerField(blank=False,null=True)
     house_number = models.CharField(max_length=50,blank=False,null=True)
     amount = models.IntegerField(blank=False,null=False)
