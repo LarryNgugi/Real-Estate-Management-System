@@ -16,7 +16,25 @@
 
 {% endblock 'css' %}
 
+<div class="container">
+    <form method="POST" action=" {% url 'pay' %} ">
 
+        {% csrf_token %}
+
+
+        <div class="form-group">
+            <input type="number" id="number" name="number" required class=" form-control m-1" placeholder="Phone Number*">
+        </div>
+
+        <div class="form-group">
+            <input type="number" id="number" name="amount" required class=" form-control m-1" placeholder="Amount">
+        </div>
+
+
+        <button type="submit" class="btn btn-secondary btn-lg">Process</button>
+
+    </form>
+</div>
 
 <body class="is-boxed has-animations">
 
