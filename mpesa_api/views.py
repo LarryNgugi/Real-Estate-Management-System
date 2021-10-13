@@ -2,14 +2,12 @@ from django.http import HttpResponse, JsonResponse
 import requests
 from requests.auth import HTTPBasicAuth
 import json
-from . mpesa_credentials import MpesaAccessToken, LipanaMpesaPpassword
+from .mpesa_credentials import MpesaAccessToken,LipanaMpesaPpassword
 from django.views.decorators.csrf import csrf_exempt
 from .models import MpesaPayment
 from django.shortcuts import render,HttpResponse
 
 # Create your views here.
-
-
 
 def getAccessToken(request):
     consumer_key = 'WVRI7ADXJZ3n4jwrMCWPLKk8wdOQ9uGq'
@@ -35,7 +33,7 @@ def lipa_na_mpesa_online(number, amount):
         "PartyA": number,  # replace with your phone number to get stk push
         "PartyB": LipanaMpesaPpassword.Business_short_code,
         "PhoneNumber": number,  # replace with your phone number to get stk push
-        "CallBackURL": "https://91cf-41-80-96-129.ngrok.io",  # replace with ngrok https
+        "CallBackURL": "https://b5d4-41-80-96-129.ngrok.io",  # replace with ngrok https
         "AccountReference": "Larry",
         "TransactionDesc": "Testing stk push"
     }
@@ -51,9 +49,9 @@ def register_urls(request):
     options = {"ShortCode": LipanaMpesaPpassword.Business_short_code,
                "ResponseType": "Completed",
                # replace  with ngrok https
-               "ConfirmationURL": "https://91cf-41-80-96-129.ngrok.io/c2b/confirmation",
+               "ConfirmationURL": "https://b5d4-41-80-96-129.ngrok.io/c2b/confirmation",
                # replace  with ngrok https
-               "ValidationURL": "https://91cf-41-80-96-129.ngrok.io/c2b/validation"
+               "ValidationURL": "https://b5d4-41-80-96-129.ngrok.io/c2b/validation"
                }
     response = requests.post(api_url, json=options, headers=headers)
     return HttpResponse(response.text)
@@ -88,21 +86,27 @@ def confirmation(request):
         organization_balance=mpesa_payment['OrgAccountBalance'],
         type=mpesa_payment['TransactionType'],
     )
+
     payment.save()
+
     context = {
         "ResultCode": 0,
         "ResultDesc": "Accepted"
     }
+
     return JsonResponse(dict(context))
 
 
 def pay(request):
     context = {}
 
+    
     number = int(request.POST.get("number"))
     amount = int(request.POST.get("amount"))
 
     lipa_na_mpesa_online(number, amount)
+
+
 
     return render(request, 'home.html', context)
 

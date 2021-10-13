@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-z8&dnjbr(*n+o&cplcks)f+1l3)kqzdpfdap73_)2_z4()-p%r
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','91cf-41-80-96-129.ngrok.io','localhost']
+ALLOWED_HOSTS = ['127.0.0.1','b5d4-41-80-96-129.ngrok.io','localhost']
 
 
 # Application definition

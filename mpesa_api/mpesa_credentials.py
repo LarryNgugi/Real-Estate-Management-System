@@ -9,7 +9,7 @@ class MpesaC2bCredential:
     consumer_key = 'lVJwP7Ue5iaUZiGyjjtZq5ppPHbtmq6E' #create sandbox and insert keys
     consumer_secret = 'trDWCCHVAUy0pTG2' #create sandbox and insert keys
     api_URL = 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials' #paybill url
-
+    
 
 class MpesaAccessToken:
     r = requests.get(MpesaC2bCredential.api_URL,
