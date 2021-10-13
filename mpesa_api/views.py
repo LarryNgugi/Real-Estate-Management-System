@@ -35,7 +35,7 @@ def lipa_na_mpesa_online(number, amount):
         "PartyA": number,  # replace with your phone number to get stk push
         "PartyB": LipanaMpesaPpassword.Business_short_code,
         "PhoneNumber": number,  # replace with your phone number to get stk push
-        "CallBackURL": "https://5142-41-80-96-129.ngrok.io",  # replace with ngrok https
+        "CallBackURL": "https://91cf-41-80-96-129.ngrok.io",  # replace with ngrok https
         "AccountReference": "Larry",
         "TransactionDesc": "Testing stk push"
     }
@@ -51,9 +51,9 @@ def register_urls(request):
     options = {"ShortCode": LipanaMpesaPpassword.Business_short_code,
                "ResponseType": "Completed",
                # replace  with ngrok https
-               "ConfirmationURL": "https://5142-41-80-96-129.ngrok.io/c2b/confirmation",
+               "ConfirmationURL": "https://91cf-41-80-96-129.ngrok.io/c2b/confirmation",
                # replace  with ngrok https
-               "ValidationURL": "https://5142-41-80-96-129.ngrok.io/c2b/validation"
+               "ValidationURL": "https://91cf-41-80-96-129.ngrok.io/c2b/validation"
                }
     response = requests.post(api_url, json=options, headers=headers)
     return HttpResponse(response.text)
@@ -77,7 +77,7 @@ def validation(request):
 def confirmation(request):
     mpesa_body = request.body.decode('utf-8')
     mpesa_payment = json.loads(mpesa_body)
-    payment = MpesaPayment(
+    payment = MpesaPayment.objects.create(
         first_name=mpesa_payment['FirstName'],
         last_name=mpesa_payment['LastName'],
         middle_name=mpesa_payment['MiddleName'],
