@@ -9,7 +9,7 @@ class BaseModel(models.Model):
         abstract = True
 
 
-# M-pesa Payment models
+# Mpesa Payment models
 
 class MpesaCalls(BaseModel):
     ip_address = models.TextField()
