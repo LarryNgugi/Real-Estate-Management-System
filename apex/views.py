@@ -1,9 +1,9 @@
-from django.shortcuts import redirect, render
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
-from .models import Feedback, Profile
-from django.views.generic.edit import CreateView
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
+
 from .forms import ProfileForm
+from .models import Feedback, Profile
 
 
 # Create your views here.
@@ -27,10 +27,14 @@ def contact(request):
 
 def profile(request):
     context = {}
+    context['profile_list'] = Profile.objects.all()
+
     return render(request, "apex/admin/profile.html", context)
 
 
-def profileForm(request):
+def saveProfile(request):
+    redirect_url = '/staff/profile'
+
     if request.method == 'POST':
 
         form = ProfileForm(request.POST)
@@ -43,20 +47,12 @@ def profileForm(request):
 
             Profile.objects.create(name=name, email=email, phone_number=phone_number, house_number=house_number)
 
-            return HttpResponseRedirect('staff/profile')
+            return HttpResponseRedirect(redirect_url)
 
     else:
         form = ProfileForm()
 
     return render(request, 'apex/admin/profile_form.html', {'form': form})
-
-
-def showProfile(request):
-    context = {}
-
-    context['profile_list'] = Profile.objects.all()
-
-    return render(request, 'apex/admin/profile.html', context)
 
 
 def saveFeedback(request):

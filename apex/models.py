@@ -14,6 +14,21 @@ class TenantDetails(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        verbose_name_plural = 'Tenant Details'
+
+
+class NextOfKin(models.Model):
+    name = models.CharField(max_length=100, blank=False, null=True)
+    email = models.EmailField(max_length=100, blank=True, null=True)
+    house_number = models.CharField(max_length=10, blank=False, null=False)
+    phone_number = models.IntegerField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name_plural = 'Next Of Kin'
+
 
 class Profile(models.Model):
     name = models.CharField(max_length=100, blank=False, null=True)
@@ -21,7 +36,7 @@ class Profile(models.Model):
     phone_number = models.IntegerField(blank=False, null=True)
     house_number = models.CharField(max_length=50, blank=False, null=True)
     account_number = models.CharField(max_length=50, blank=False, null=True)
-    amount = models.ForeignKey(MpesaPayment, on_delete=models.CASCADE, blank=False, null=False)
+    amount = models.IntegerField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -38,6 +53,9 @@ class Account(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        verbose_name_plural = 'Account'
+
 
 class Feedback(models.Model):
     first_name = models.CharField(max_length=50, blank=True, null=True)
@@ -50,3 +68,6 @@ class Feedback(models.Model):
 
     class Meta:
         verbose_name_plural = 'Feedback'
+
+    def __str__(self):
+        return self.name
