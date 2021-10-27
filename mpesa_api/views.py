@@ -1,19 +1,18 @@
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse,   JsonResponse
 import requests
 from requests.auth import HTTPBasicAuth
 import json
-from . mpesa_credentials import MpesaAccessToken, LipanaMpesaPpassword
+from .mpesa_credentials import MpesaAccessToken, LipanaMpesaPpassword
 from django.views.decorators.csrf import csrf_exempt
 from .models import MpesaPayment
-from django.shortcuts import render,HttpResponse
+from django.shortcuts import render, HttpResponse
+
 
 # Create your views here.
 
-
-
 def getAccessToken(request):
-    consumer_key = 'WVRI7ADXJZ3n4jwrMCWPLKk8wdOQ9uGq'
-    consumer_secret = '6gwbjIcPz9Gm8KkA'
+    consumer_key = 'lVJwP7Ue5iaUZiGyjjtZq5ppPHbtmq6E'
+    consumer_secret = 'trDWCCHVAUy0pTG2'
     api_URL = 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials'
     r = requests.get(api_URL, auth=HTTPBasicAuth(consumer_key, consumer_secret))
     mpesa_access_token = json.loads(r.text)
@@ -35,7 +34,7 @@ def lipa_na_mpesa_online(number, amount):
         "PartyA": number,  # replace with your phone number to get stk push
         "PartyB": LipanaMpesaPpassword.Business_short_code,
         "PhoneNumber": number,  # replace with your phone number to get stk push
-        "CallBackURL": "https://5142-41-80-96-129.ngrok.io",  # replace with ngrok https
+        "CallBackURL": "https://sandbox.safaricom.co.ke/mpesa/",  # replace with ngrok https
         "AccountReference": "Larry",
         "TransactionDesc": "Testing stk push"
     }
@@ -48,12 +47,12 @@ def register_urls(request):
     access_token = MpesaAccessToken.validated_mpesa_access_token
     api_url = "https://sandbox.safaricom.co.ke/mpesa/c2b/v1/registerurl"
     headers = {"Authorization": "Bearer %s" % access_token}
-    options = {"ShortCode": LipanaMpesaPpassword.Business_short_code,
+    options = {"ShortCode": LipanaMpesaPpassword.Test_c2b_shortcode,
                "ResponseType": "Completed",
                # replace  with ngrok https
-               "ConfirmationURL": "https://5142-41-80-96-129.ngrok.io/c2b/confirmation",
+               "ConfirmationURL": "https://615f-41-80-98-245.ngrok.io/api/v1/c2b/confirmation",
                # replace  with ngrok https
-               "ValidationURL": "https://5142-41-80-96-129.ngrok.io/c2b/validation"
+               "ValidationURL": "https://615f-41-80-98-245.ngrok.io/api/v1/c2b/validation"
                }
     response = requests.post(api_url, json=options, headers=headers)
     return HttpResponse(response.text)
@@ -77,7 +76,7 @@ def validation(request):
 def confirmation(request):
     mpesa_body = request.body.decode('utf-8')
     mpesa_payment = json.loads(mpesa_body)
-    payment = MpesaPayment(
+    payment = MpesaPayment.objects.create(
         first_name=mpesa_payment['FirstName'],
         last_name=mpesa_payment['LastName'],
         middle_name=mpesa_payment['MiddleName'],
@@ -88,11 +87,14 @@ def confirmation(request):
         organization_balance=mpesa_payment['OrgAccountBalance'],
         type=mpesa_payment['TransactionType'],
     )
+
     payment.save()
+
     context = {
         "ResultCode": 0,
         "ResultDesc": "Accepted"
     }
+
     return JsonResponse(dict(context))
 
 

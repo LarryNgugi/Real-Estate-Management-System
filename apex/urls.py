@@ -19,25 +19,20 @@ from django.urls.conf import include
 from apex import views
 from mpesa_api import urls as mpesa_api_urls
 
-
-
-
-
 staff_patterns = [
     path('feedback', views.showFeedback, name='feedback'),
-    path('delete/feedback <id>',views.deleteFeedback,name='delete_feedback'),
-    path('profile',views.profile,name='profile'),
-    path('create/profile',views.saveProfile,name='profile_form'),
-
+    path('delete/feedback <id>', views.deleteFeedback, name='delete_feedback'),
+    path('profile', views.profile, name='profile'),
+    path('create/profile', views.saveProfile, name='save_form'),
 
 ]
 
-
 urlpatterns = [
-    path('mpesa_api/',include(mpesa_api_urls)), #  everything that starts with app2 urls， to app2 (app the name ) the urls. py to deal with 
+    path('mpesa_api/', include(mpesa_api_urls)),
+    # everything that starts with app2 urls， to app2 (app the name ) the urls. py to deal with
     path('staff/', include(staff_patterns)),
     path('', views.home, name='home'),
-    path('contact/',views.contact, name="contact"),
-    path ('save_feedback',views.saveFeedback, name = "save_feedback"),
+    path('contact/', views.contact, name="contact"),
+    path('save_feedback', views.saveFeedback, name="save_feedback"),
 
 ]
