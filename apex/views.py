@@ -55,6 +55,13 @@ def saveProfile(request):
     return render(request, 'apex/admin/profile_form.html', {'form': form})
 
 
+def deleteProfile(request,id):
+    our_profile = Profile.objects.get(pk=id)
+    our_profile.delete()
+
+    return HttpResponseRedirect('/staff/profile')
+
+
 def saveFeedback(request):
     first_name = request.POST.get("first_name")
     last_name = request.POST.get("last_name")
