@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, __all__
 from django.shortcuts import render
+from django.views.generic import UpdateView
 
 from .forms import ProfileForm
 from .models import Feedback, Profile
@@ -43,9 +44,13 @@ def saveProfile(request):
             name = form.cleaned_data['name']
             email = form.cleaned_data['email']
             phone_number = form.cleaned_data['phone_number']
+            id_number = form.cleaned_data['id_number']
             house_number = form.cleaned_data['house_number']
+            account_number = form.cleaned_data['account_number']
+            amount = form.cleaned_data['amount']
 
-            Profile.objects.create(name=name, email=email, phone_number=phone_number, house_number=house_number)
+            Profile.objects.create(name=name, email=email, phone_number=phone_number, house_number=house_number
+                                   , id_number=id_number, account_number=account_number, amount=amount)
 
             return HttpResponseRedirect(redirect_url)
 
@@ -55,7 +60,7 @@ def saveProfile(request):
     return render(request, 'apex/admin/profile_form.html', {'form': form})
 
 
-def deleteProfile(request,id):
+def deleteProfile(request, id):
     our_profile = Profile.objects.get(pk=id)
     our_profile.delete()
 
@@ -90,3 +95,10 @@ def deleteFeedback(request, id):
     our_feedback.delete()
 
     return HttpResponseRedirect('/staff/feedback')
+
+
+class ProfileUpdate(UpdateView):
+    model = Profile
+    fields = ['name', 'phone_number', 'email', 'house_number', 'account_number', 'amount', 'id_number']
+    success_url = '/staff/profile'
+    template_name = 'apex/admin/update.html'

@@ -13,7 +13,7 @@
 
             </div>
 
-            <a class="btn btn-success mr-auto" href="{% url 'save_form' %}">
+            <a class="btn btn-success my-3 ml-auto" href="{% url 'save_form' %}">
             + Add New Tenant
             </a>
  
@@ -27,11 +27,12 @@
                         <tr>
                             
                         <td>ID</td>
+                        <td>H/No</td>
                         <td>Full Names</td>
                         <td>Phone Number</td>
+                        <td>ID/No</td>
                         <td>Email</td>
-                        <td>House Number</td>
-                        <td>Account Number</td>
+                        <td>Acc/No</td>
                         <td>Amount</td>
                         <td>Action</td>
 
@@ -45,15 +46,16 @@
 
                     <tr>
                         <td>{{profile.id}}</td>
+                        <td>{{profile.house_number}}</td>
                         <td>{{profile.name}}</td>
                         <td>{{profile.phone_number}}</td>
+                        <td>{{profile.id_number}}</td>
                         <td>{{profile.email }}</td>
-                        <td>{{profile.house_number}}</td>
                         <td>{{profile.account_number}}</td>
                         <td>{{profile.amount}}</td>
                         <td>
-                            <a href="{% url 'delete_profile' profile.id %}" title="Delete Tenant" class="btn btn-danger btn-sm">
-                                <i class="fa fa-trash"></i>
+                            <a href="{% url 'update_profile' profile.id %}" title="View Tenant" class="btn btn-success btn-sm">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
                             </a>
                         </td>
 

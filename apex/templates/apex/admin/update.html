@@ -1,0 +1,79 @@
+{% extends 'apex/admin/layouts/admin-base.html' %}
+
+{% load static %}
+
+{% load widget_tweaks %}
+
+{% block 'content' %}
+
+
+<div class="container">
+
+    <h3 class="mx-3 my-3 text-success">
+        <i class=" fa fa-tags"></i>
+        {{ profile.account_number }} | {{ profile.house_number }} </h3>
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-10 col-md-8 col-sm-12">
+
+            <div class="card-header">
+
+                <div class="row ">
+
+                    <h5>Update Tenant Details</h5>
+
+                </div>
+            </div>
+
+            <div class="card-body">
+
+                            <form method="POST" enctype="multipart/form-data">
+
+                                {% csrf_token %}
+
+
+                                    {% for hidden in form.hidden_fields %}
+
+                                        {{ hidden }}
+                                        {% endfor %}
+
+                                        {% for field in form.visible_fields %}
+                                        <div class="form-group">
+                                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                            {{ field|add_class:'form-control' }}
+                                            {% for error in field.errors %}
+                                            <span class="help-block">{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                        {% endfor %}
+
+
+                                <button type="submit"  class="btn btn-secondary btn-lg">Submit</button>
+
+                            </form>
+
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
+
+{%block 'scripts' %}
+
+<!-- remaind empty -->
+
+{% endblock %}

@@ -20,11 +20,12 @@ class NextOfKin(models.Model):
 
 class Profile(models.Model):
     name = models.CharField(max_length=100, blank=False, null=True)
+    id_number = models.IntegerField(blank=False, null=True)
     email = models.EmailField(max_length=100, blank=True, null=True)
     phone_number = models.IntegerField(blank=False, null=True)
     house_number = models.CharField(max_length=50, blank=False, null=True)
     account_number = models.CharField(max_length=50, blank=False, null=True)
-    amount = models.IntegerField(default=0, blank=True, null=True)
+    amount = models.IntegerField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
