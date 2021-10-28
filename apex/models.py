@@ -9,6 +9,7 @@ from django.db import models
 class NextOfKin(models.Model):
     name = models.CharField(max_length=100, blank=False, null=True)
     email = models.EmailField(max_length=100, blank=True, null=True)
+    id_number = models.IntegerField(blank=False, null=True)
     house_number = models.CharField(max_length=10, blank=False, null=False)
     phone_number = models.IntegerField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)

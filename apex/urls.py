@@ -25,8 +25,10 @@ staff_patterns = [
     path('delete/feedback <id>', views.deleteFeedback, name='delete_feedback'),
     path('profile', views.profile, name='profile'),
     path('create/profile', views.saveProfile, name='save_form'),
+    path('create/profile', views.saveNextOfKin, name='nextOfKin_form'),
     # path('delete/profile <id>', views.deleteProfile, name='delete_profile')
     path('update/profile/<pk>', ProfileUpdate.as_view(), name='update_profile')
+
 
 ]
 
