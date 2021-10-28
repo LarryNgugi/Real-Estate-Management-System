@@ -1,26 +1,15 @@
 from django.db import models
-from mpesa_api.models import MpesaPayment
+
+
+# from mpesa_api.models import MpesaPayment
 
 
 # Create your models here.
 
-class TenantDetails(models.Model):
-    name = models.CharField(max_length=100, blank=False, null=True)
-    email = models.EmailField(max_length=100, blank=True, null=True)
-    house_number = models.CharField(max_length=10, blank=False, null=False)
-    account_number = models.CharField(max_length=50, blank=False, null=True)
-    Transaction = models.CharField(max_length=50, blank=True, null=False)
-    phone_number = models.IntegerField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        verbose_name_plural = 'Tenant Details'
-
-
 class NextOfKin(models.Model):
     name = models.CharField(max_length=100, blank=False, null=True)
     email = models.EmailField(max_length=100, blank=True, null=True)
+    id_number = models.IntegerField(blank=False, null=True)
     house_number = models.CharField(max_length=10, blank=False, null=False)
     phone_number = models.IntegerField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -32,6 +21,7 @@ class NextOfKin(models.Model):
 
 class Profile(models.Model):
     name = models.CharField(max_length=100, blank=False, null=True)
+    id_number = models.IntegerField(blank=False, null=True)
     email = models.EmailField(max_length=100, blank=True, null=True)
     phone_number = models.IntegerField(blank=False, null=True)
     house_number = models.CharField(max_length=50, blank=False, null=True)
@@ -42,6 +32,9 @@ class Profile(models.Model):
 
     class Meta:
         verbose_name_plural = 'Profile'
+
+    def __str__(self):
+        return self.account_number
 
 
 class Account(models.Model):
@@ -68,6 +61,3 @@ class Feedback(models.Model):
 
     class Meta:
         verbose_name_plural = 'Feedback'
-
-    def __str__(self):
-        return self.name

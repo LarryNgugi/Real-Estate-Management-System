@@ -57,7 +57,7 @@
 
             <div class="card-body">
 
-                <form action=" {% url 'save_form' %} " method="POST" >
+                <form action=" {% url 'nextOfKin_form' %} " method="POST" >
                     {% csrf_token %}
 
                     {% for hidden in form.hidden_fields %}
@@ -78,7 +78,6 @@
                         <button type="submit"  class="btn btn-secondary btn-lg">Submit</button>
 
                 </form>
-
 
 
             </div>
