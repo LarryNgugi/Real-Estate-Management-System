@@ -13,24 +13,31 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls import include, url
 from django.urls import path
 from django.urls.conf import include
 from apex import views
-
+from mpesa_api import urls as mpesa_api_urls
+from .views import ProfileUpdate
 
 staff_patterns = [
     path('feedback', views.showFeedback, name='feedback'),
-    path('delete/feedback <id>',views.deleteFeedback,name='delete_feedback'),
-    path('profile',views.profile,name='profile'),
-    path('create/profile',views.saveProfile,name='profile_form')
+    path('delete/feedback <id>', views.deleteFeedback, name='delete_feedback'),
+    path('profile', views.profile, name='profile'),
+    path('create/profile', views.saveProfile, name='save_form'),
+    path('create/profile', views.saveNextOfKin, name='nextOfKin_form'),
+    # path('delete/profile <id>', views.deleteProfile, name='delete_profile')
+    path('update/profile/<pk>', ProfileUpdate.as_view(), name='update_profile')
 
 
 ]
 
 urlpatterns = [
+    path('mpesa_api/', include(mpesa_api_urls)),
+    # everything that starts with app2 urls， to app2 (app the name ) the urls. py to deal with
     path('staff/', include(staff_patterns)),
     path('', views.home, name='home'),
-    path('contact/',views.contact, name="contact"),
-    path ('save_feedback',views.saveFeedback, name = "save_feedback")
+    path('contact/', views.contact, name="contact"),
+    path('save_feedback', views.saveFeedback, name="save_feedback"),
 
 ]

@@ -15,11 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls.conf import path,include
+from django.urls import path, include
 
+def trigger_error(request):
+    division_by_zero = 300 / 0
+    
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('apex.urls')),
-
-    
+    path('api/v1/', include('mpesa_api.urls')),
+    path('sentry-debug', trigger_error),
 ]

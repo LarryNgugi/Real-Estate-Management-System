@@ -9,7 +9,7 @@
 
 <div class="container-fluid">
 
-    <h3 class="m-3">Create Tenant Profile</h3>
+    <h3 class="m-4">Create New Tenant Profile</h3>
 
     <div class="row">
 
@@ -20,14 +20,26 @@
 
             <div class="card-body">
 
-                <form action=" {% url 'profile_form' %} " method="POST">
-                    
+                <form action=" {% url 'save_form' %} " method="POST">
+
                     {% csrf_token %}
 
-                    {{ profileForms.as_p}}
+                    {% for hidden in form.hidden_fields %}
 
+                    {{ hidden }}
+                    {% endfor %}
 
-                        <button type="submit"  class="btn btn-secondary btn-lg">Submit</button>
+                    {% for field in form.visible_fields %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field|add_class:'form-control' }}
+                        {% for error in field.errors %}
+                        <span class="help-block">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+
+                    <button type="submit"  class="btn btn-secondary btn-lg">Submit</button>
 
                 </form>
 
@@ -45,15 +57,15 @@
 
             <div class="card-body">
 
-                <form action="" method="POST" enctype="multipart/form-data">
+                <form action=" {% url 'nextOfKin_form' %} " method="POST" >
                     {% csrf_token %}
 
                     {% for hidden in form.hidden_fields %}
 
-                        {{ hidden }}
-                        {% endfor %}
+                    {{ hidden }}
+                    {% endfor %}
 
-                        {% for field in form.visible_fields %}
+                    {% for field in form.visible_fields %}
                         <div class="form-group">
                             <label for="{{ field.id_for_label }}">{{ field.label }}</label>
                             {{ field|add_class:'form-control' }}
@@ -61,36 +73,27 @@
                             <span class="help-block">{{ error }}</span>
                             {% endfor %}
                         </div>
-                        {% endfor %}
+                    {% endfor %}
 
                         <button type="submit"  class="btn btn-secondary btn-lg">Submit</button>
 
                 </form>
 
-                
-               
+
             </div>
-           
+
         </div>
     </div>
 
     
 </div>
 
-
-
-
-
-
-
-
-
-
-
 {% endblock %}
+
+
 
 {%block 'scripts' %}
 
-<!-- remaind empty -->
+<!-- remained empty -->
 
-{% endblock %}
+{% endblock 'scripts' %}

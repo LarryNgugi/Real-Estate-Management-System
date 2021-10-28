@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-z8&dnjbr(*n+o&cplcks)f+1l3)kqzdpfdap73_)2_z4()-p%r
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '615f-41-80-98-245.ngrok.io', 'localhost']
 
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apex.apps.ApexConfig',
+    'mpesa_api.apps.MpesaApiConfig',
     'widget_tweaks',
 ]
 
@@ -131,3 +132,5 @@ STATICFILES_DIR = [
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
