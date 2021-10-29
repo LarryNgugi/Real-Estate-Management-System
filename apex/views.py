@@ -1,4 +1,3 @@
-import self as self
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import UpdateView
@@ -108,6 +107,22 @@ def deleteFeedback(request, id):
 
 class ProfileUpdate(UpdateView):
     model = Profile
-    fields = ['name', 'id_number', 'phone_number', 'email', 'house_number', 'account_number', 'amount']
+    fields = ['name', 'id_number', 'phone_number', 'email', 'house_number', 'account_number', 'amount',
+              'kin_name', 'kin_id_number', 'kin_phone_number', 'kin_email', 'relationship']
+    label = {
+        'name': 'Name',
+        'id_number': 'ID Number',
+        'phone_number': 'Phone Number',
+        'email': 'Email',
+        'house_number': 'House Number',
+        'account_number': 'Account Number',
+        'amount': 'House Amount',
+        'kin_name': 'Next Of  Full Name',
+        'kin_id_number': 'Next Of Kin ID Number',
+        'kin_phone_number': 'Next Of Kin Phone Number',
+        'kin_email': 'Next Of Kin Email',
+        'relationship': 'Relationship',
+    }
     success_url = '/staff/profile'
     template_name = 'apex/admin/update.html'
+

@@ -1,15 +1,12 @@
 from django.db import models
 
-
 # from mpesa_api.models import MpesaPayment
 
 
 # Create your models here.
-
-
 class Profile(models.Model):
     name = models.CharField(max_length=100, blank=False, null=True)
-    Kin_name = models.CharField(max_length=100, blank=False, null=True)
+    kin_name = models.CharField(max_length=100, blank=False, null=True)
     id_number = models.IntegerField(blank=False, null=True)
     kin_id_number = models.IntegerField(blank=False, null=True)
     email = models.EmailField(max_length=100, blank=True, null=True)

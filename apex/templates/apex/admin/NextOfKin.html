@@ -25,12 +25,11 @@
                         <td>S/No</td>
                         <td>H/No</td>
                         <td>Full Names</td>
-                        <td>Phone Number</td>
                         <td>ID/No</td>
+                        <td>Phone Number</td>
                         <td>Email</td>
                         <td>Relationship</td>
-                        <td>Action</td>
-
+{#                        <td>Action</td>#}
 
                         </tr>
                     </thead>
@@ -40,11 +39,13 @@
                     {% for nextofkin in nextofkins_list %}
 
                     <tr>
+
+                        <td>{{nextofkin.id}}</td>
                         <td>{{nextofkin.house_number}}</td>
-                        <td>{{nextofkin.name}}</td>
-                        <td>{{nextofkin.phone_number}}</td>
-                        <td>{{nextofkin.id_number}}</td>
-                        <td>{{nextofkin.email }}</td>
+                        <td>{{nextofkin.kin_name}}</td>
+                        <td>{{nextofkin.kin_phone_number}}</td>
+                        <td>{{nextofkin.kin_id_number}}</td>
+                        <td>{{nextofkin.kin_email }}</td>
                         <td>{{nextofkin.relationship }}</td>
 {#                        <td>#}
 {#                            <a href="{% url 'update_nextofkin' nextofkin.id %}" title="View Tenant" class="btn btn-success btn-sm">#}
