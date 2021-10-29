@@ -16,10 +16,24 @@
                 <i class="fa fa-money mr-2 " aria-hidden="true"></i>Accounts</a>
         </li>
         
-        <li class="my-2 ">
-            <a href=" {% url 'profile'  %} ">
-                <i class="fa fa-user-o mr-2 " aria-hidden="true"></i>Client Profiles</a>
-        </li>
+
+         <li class="my-2 ">
+                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">
+                   <i class="fa fa-user-o mr-2 " aria-hidden="true"></i>Client Profiles
+                </a>
+                <ul class="collapse list-unstyled" id="pageSubmenu">
+                    <li>
+                        <a href="{% url 'profile'  %} ">Apex Apartments</a>
+                    </li>
+                    <li>
+                        <a href="#">Kiharu Block 111 431</a>
+                    </li>
+                    <li>
+                        <a href="#">Vidhu Block 111 124</a>
+                    </li>
+
+                </ul>
+            </li>
 
 
         <li class="my-2 ">
