@@ -1,5 +1,5 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from .forms import ProfileForm, ProfilesForm
 from .models import Feedback, Profile
@@ -118,6 +118,6 @@ def updateProfile(request, id):
     if form.is_valid():
         form.save()
 
-        return HttpResponseRedirect('/staff/profile')
+        return redirect('/staff/profile')
 
     return render(request, 'apex/admin/update.html', {'form': form, 'profile': our_profile})

@@ -60,6 +60,17 @@ class ProfilesForm(forms.ModelForm):
         }
 
         widgets = {
-
+            'name': forms.TextInput(attrs={'placeholder': 'Tenant Full Name'}),
+            'id_number': forms.TextInput(attrs={'placeholder': 'Tenant National ID Number'}),
+            'phone_number': forms.TextInput(attrs={'placeholder': 'Tenant Official Phone Number'}),
+            'email': forms.TextInput(attrs={'placeholder': 'Tenant Email (Optional) '}),
+            'house_number': forms.TextInput(attrs={'placeholder': 'Tenant House Number'}),
+            'account_number': forms.TextInput(attrs={'placeholder': 'Tenant Account Number'}),
+            'amount': forms.TextInput(attrs={'placeholder': 'Tenant House Amount'}),
+            'kin_name': forms.TextInput(attrs={'placeholder': 'Enter Next Of Kin Full Name'}),
+            'kin_id_number': forms.TextInput(attrs={'placeholder': 'Enter Next Of Kin National ID Number'}),
+            'kin_phone_number': forms.TextInput(attrs={'placeholder': 'Enter Next Of Kin Official Phone Number'}),
+            'kin_email': forms.TextInput(attrs={'placeholder': 'Enter Next Of Kin Email (Optional) '}),
+            'relationship': forms.Select(choices=RELATIONSHIP_CHOICES),
         }
 
