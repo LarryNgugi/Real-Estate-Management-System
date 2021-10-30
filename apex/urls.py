@@ -18,7 +18,7 @@ from django.urls import path
 from django.urls.conf import include
 from apex import views
 from mpesa_api import urls as mpesa_api_urls
-from .views import ProfileUpdate
+# from .views import ProfileUpdate
 
 staff_patterns = [
     path('feedback', views.showFeedback, name='feedback'),
@@ -26,7 +26,8 @@ staff_patterns = [
     path('profile', views.profile, name='profile'),
     path('create/profile', views.saveProfile, name='save_form'),
     # path('delete/profile <id>', views.deleteProfile, name='delete_profile'),
-    path('update/profile/<pk>', ProfileUpdate.as_view(), name='update_profile'),
+    # path('update/profile/<pk>', ProfileUpdate.as_view(), name='update_profile'),
+    path('update/profile/<id>', views.updateProfile, name='update_profile'),
     path('nextofkin/profile', views.nextOfKin, name='nextOfKin'),
 
 

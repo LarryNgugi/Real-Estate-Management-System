@@ -1,5 +1,4 @@
 from django import forms
-from django.forms import ModelForm
 
 from .models import Profile
 
@@ -13,7 +12,7 @@ RELATIONSHIP_CHOICES = [
 ]
 
 
-class ProfilesForm(forms.Form):
+class ProfileForm(forms.Form):
     name = forms.CharField(label='Full Name', widget=forms.TextInput(attrs={'placeholder': 'Tenant Full Name'}),
                            max_length=100)
     id_number = forms.IntegerField(label='ID Number',
@@ -40,7 +39,7 @@ class ProfilesForm(forms.Form):
     relationship = forms.CharField(label='Whats Your Relationship?', widget=forms.Select(choices=RELATIONSHIP_CHOICES))
 
 
-class ProfileForm(forms.ModelForm):
+class ProfilesForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['name', 'id_number', 'phone_number', 'email', 'house_number', 'account_number', 'amount',
@@ -59,3 +58,8 @@ class ProfileForm(forms.ModelForm):
             'kin_email': 'Next Of Kin Email',
             'relationship': 'Relationship',
         }
+
+        widgets = {
+
+        }
+

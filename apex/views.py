@@ -1,8 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from django.views.generic import UpdateView
 
-from .forms import ProfileForm
+from .forms import ProfileForm, ProfilesForm
 from .models import Feedback, Profile
 
 
@@ -33,7 +32,6 @@ def profile(request):
 
 
 def saveProfile(request):
-
     redirect_url = '/staff/profile'
 
     if request.method == 'POST':
@@ -48,9 +46,17 @@ def saveProfile(request):
             house_number = form.cleaned_data['house_number']
             account_number = form.cleaned_data['account_number']
             amount = form.cleaned_data['amount']
+            NextOfKinName = form.cleaned_data['NextOfKinName']
+            NextOfKinId_number = form.cleaned_data['NextOfKinId_number']
+            NextOfKinPhone_number = form.cleaned_data['NextOfKinPhone_number']
+            NextOfKinEmail = form.cleaned_data['NextOfKinEmail']
+            relationship = form.cleaned_data['relationship']
 
             Profile.objects.create(name=name, email=email, phone_number=phone_number, house_number=house_number
-                                   , id_number=id_number, account_number=account_number, amount=amount)
+                                   , id_number=id_number, account_number=account_number, amount=amount,
+                                   kin_name=NextOfKinName
+                                   , kin_id_number=NextOfKinId_number, kin_phone_number=NextOfKinPhone_number,
+                                   kin_email=NextOfKinEmail, relationship=relationship)
 
             return HttpResponseRedirect(redirect_url)
 
@@ -70,7 +76,7 @@ def deleteProfile(request, id):
 def nextOfKin(request):
     context = {}
 
-    context['nextofkins_list'] = Profile.objects.all()
+    context['nextofkin_list'] = Profile.objects.all()
 
     return render(request, 'apex/admin/NextOfKin.html', context)
 
@@ -105,24 +111,13 @@ def deleteFeedback(request, id):
     return HttpResponseRedirect('/staff/feedback')
 
 
-class ProfileUpdate(UpdateView):
-    model = Profile
-    fields = ['name', 'id_number', 'phone_number', 'email', 'house_number', 'account_number', 'amount',
-              'kin_name', 'kin_id_number', 'kin_phone_number', 'kin_email', 'relationship']
-    label = {
-        'name': 'Name',
-        'id_number': 'ID Number',
-        'phone_number': 'Phone Number',
-        'email': 'Email',
-        'house_number': 'House Number',
-        'account_number': 'Account Number',
-        'amount': 'House Amount',
-        'kin_name': 'Next Of  Full Name',
-        'kin_id_number': 'Next Of Kin ID Number',
-        'kin_phone_number': 'Next Of Kin Phone Number',
-        'kin_email': 'Next Of Kin Email',
-        'relationship': 'Relationship',
-    }
-    success_url = '/staff/profile'
-    template_name = 'apex/admin/update.html'
+def updateProfile(request, id):
+    our_profile = Profile.objects.get(pk=id)
+    form = ProfilesForm(request.POST or None, instance=our_profile)
 
+    if form.is_valid():
+        form.save()
+
+        return HttpResponseRedirect('/staff/profile')
+
+    return render(request, 'apex/admin/update.html', {'form': form, 'profile': our_profile})
