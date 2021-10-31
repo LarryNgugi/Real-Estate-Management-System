@@ -6,6 +6,9 @@ from .models import Feedback, Profile
 
 
 # Create your views here.
+from mpesa_api.models import MpesaPayment
+
+
 def home(request):
     context = {
 
@@ -121,3 +124,10 @@ def updateProfile(request, id):
         return redirect('/staff/profile')
 
     return render(request, 'apex/admin/update.html', {'form': form, 'profile': our_profile})
+
+
+def payment(request):
+    context = {}
+    context['payments_list'] = MpesaPayment.objects.all()
+
+    return render(request, 'apex/admin/payment.html', context)

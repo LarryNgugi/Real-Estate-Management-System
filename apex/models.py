@@ -11,7 +11,7 @@ class Profile(models.Model):
     kin_id_number = models.IntegerField(blank=False, null=True)
     email = models.EmailField(max_length=100, blank=True, null=True)
     kin_email = models.EmailField(max_length=100, blank=True, null=True)
-    phone_number = models.IntegerField(blank=False, null=True)
+    phone_number = models.IntegerField(blank=True, null=True)
     kin_phone_number = models.IntegerField(blank=True, null=True)
     house_number = models.CharField(max_length=50, blank=False, null=True)
     account_number = models.CharField(max_length=50, blank=False, null=True)
