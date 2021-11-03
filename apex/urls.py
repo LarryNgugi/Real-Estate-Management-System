@@ -19,6 +19,7 @@ from django.urls.conf import include
 from apex import views
 from mpesa_api import urls as mpesa_api_urls
 
+
 # from .views import ProfileUpdate
 
 staff_patterns = [
@@ -29,7 +30,13 @@ staff_patterns = [
     # path('delete/profile <id>', views.deleteProfile, name='delete_profile'),
     path('update/profile/<id>', views.updateProfile, name='update_profile'),
     path('nextofkin/profile', views.nextOfKin, name='nextOfKin'),
-    path('payments', views.payment, name='payment')
+    path('payments', views.payment, name='payment'),
+    path('sms', views.sms, name='sms'),
+    path('create_sms/', views.create_sms, name="create_sms"),
+    path('incoming_message', views.incoming_message, name='incoming_message'),
+    path('incoming_delivery_reports', views.incoming_delivery_reports, name='incoming_delivery_reports'),
+    path('delivery_reports', views.delivery_reports, name='delivery_reports'),
+    path('inbox', views.inbox, name='inbox'),
 
 ]
 
