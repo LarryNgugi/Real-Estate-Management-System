@@ -1,10 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'apex/admin/layouts/admin-base.html' %}
+
+{% load static %}
+
+{% load widget_tweaks %}
+
+{% block 'content' %}
+
+<div class="container-fluid">
+
+    <h3 class="m-4">Create New Sms </h3>
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8 col-md-8 col-sm-12">
+
+
+            <div class="card-body">
+
+                <form action="" method="POST">
+
+                    {% csrf_token %}
+
+
+                    {% for hidden in form.hidden_fields %}
+
+                    {{ hidden }}
+                    {% endfor %}
+
+                    {% for field in form.visible_fields %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field|add_class:'form-control' }}
+                        {% for error in field.errors %}
+                        <span class="help-block">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+
+                    <button type="submit"  class="btn btn-secondary btn-lg">Submit</button>
+
+                </form>
+
+
+
+            </div>
+
+        </div>
+
+
+
+</div>
+
+{% endblock %}
+
+
+
+{%block 'scripts' %}
+
+<!-- remained empty -->
+
+{% endblock 'scripts' %}

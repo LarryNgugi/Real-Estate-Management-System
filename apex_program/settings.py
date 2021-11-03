@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'apex.apps.ApexConfig',
     'mpesa_api.apps.MpesaApiConfig',
     'widget_tweaks',
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [
@@ -81,6 +82,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        
     }
 }
 
@@ -132,5 +134,20 @@ STATICFILES_DIR = [
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+
+AT_ENDPOINT_URL = "https://api.sandbox.africastalking.com/version1/messaging"
+# Live : https://api.africastalking.com/version1/messaging
+# Sandbox: https://api.sandbox.africastalking.com/version1/messaging
+
+AT_API_KEY = 'c2cc8290d7985d228c31c7384f6f763ce6f0cff58abe7ad1f79e27ba04551aba'
+
+
+AT_USER_NAME = 'sandbox'
+
+AT_FROM_VALUE = '2390'
+
 
 

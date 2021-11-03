@@ -1,10 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'apex/admin/layouts/admin-base.html' %}
+
+{% load static %}
+
+{% load humanize %}
+
+{% block 'content' %}
+
+<div class="container-fluid">
+
+    <div class="col-lg-12 col-md-12 col-sm-12">
+
+            <div class="row">
+                <h3 class="mt-2 "> Inbox </h3>
+
+            </div>
+
+        <div class="row justify-content-right">
+
+            <div class="card-body">
+
+               <table class="table table-striped table-bordered mb-4">
+                    <thead class="thead-inverse">
+                      <tr>
+                        <th>Date</th>
+                        <th>Message</th>
+                        <th>Phone Number</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for inbox in all_inbox_items %}
+                    <tr>
+                      <td class="align-middle">{{ inbox.date|naturaltime }} </td>
+                      <td class="align-middle">{{ inbox.text }}</td>
+                      <td class="align-middle">{{ inbox.phone }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                      <td colspan="6" class="text-center b">No inbox yet. </td>
+                    </tr>
+                    {% endfor %}
+                   </tbody>
+
+               </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+{% endblock %}
+
+{% block 'scripts' %}
+
+<!-- remained empty -->
+
+{% endblock 'scripts' %}
