@@ -18,27 +18,26 @@ body{
 .vertical {
   border-right: 2px solid #fff;
   height: 350px;
+  width: 300px;
+  position: absolute;
+
 
 }
-.modal-dialog {
-    width: 300px;
+@media only screen and (max-width: 600px) {
+  .vertical{
+    transform: rotate(90deg);
+    margin-left: 30px;
+  }
+   .apex{
+    top: 20%;
+  }
+
+   form{
+       top: 50%;
+   }
 }
-.modal-footer {
-    height: 70px;
-    margin: 0;
-}
-.modal-footer .btn {
-    font-weight: bold;
-}
-.modal-footer .progress {
-    display: none;
-    height: 32px;
-    margin: 0;
-}
-.input-group-addon {
-    color: #fff;
-    background: #3276B1;
-}
+
+
 form {
     width: 300px;
     margin-right:10px;
