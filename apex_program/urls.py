@@ -25,5 +25,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('apex.urls')),
     path('api/v1/', include('mpesa_api.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('sentry-debug', trigger_error),
 ]

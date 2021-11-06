@@ -38,6 +38,7 @@
                         <th>Message ID</th>
                         <th>Message</th>
                         <th>To</th>
+                        <th>Status</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -46,10 +47,11 @@
                       <td class="align-middle">{{ sms.messageId }}</td>
                       <td class="align-middle">{{ sms.text|truncatechars:20 }}</td>
                       <td class="align-middle">{{ sms.phone }}</td>
+                      <td class="align-middle"> ({{ sms.date|naturalday }}) {{ sms.status }}</td>
                     </tr>
                     {% empty %}
                     <tr>
-                      <td colspan="6" class="text-center">No message sent.</td>
+                      <td colspan="10" class="text-center">No message sent.</td>
                     </tr>
                     {% endfor %}
                    </tbody>

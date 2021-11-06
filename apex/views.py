@@ -152,7 +152,7 @@ def outbox(request):
     if 'search' in request.GET:
         search_term = request.GET.get('search')
         outbox = outbox.filter(text__icontains=search_term)
-    paginator = Paginator(outbox, 5)
+    paginator = Paginator(outbox, 100)
     page = request.GET.get('page')
     outbox = paginator.get_page(page)
     context = {'outbox': outbox, 'active': clicked, 'search_term': search_term}
@@ -176,12 +176,12 @@ def create_sms(request):
 def incoming_message(request):
     """
     sample incoming message from phone through AfricasTalking API
-    {  'from': ['+2547278153xx'],
+    {  'from': ['+254714389500'],
      'linkId': ['28a92cdf-2d63-4ee3-93df-4233d3de0356'],
        'text': ['heey this is a message from a phone'],
          'id': ['b68d0989-d856-494f-92ee-7c439e96e1d9'],
        'date': ['2021-01-14 08:10:15'],
-         'to': ['17163'] }
+         'to': ['2390'] }
     """
     date = request.POST.get('date')
     text = request.POST.get('text')
@@ -206,7 +206,7 @@ def incoming_message(request):
 def incoming_delivery_reports(request):
     """
     sample delivery report from Africas Talking API
-    {'phoneNumber': ['+254727815xx'],
+    {'phoneNumber': ['+254714389500'],
       'retryCount': ['0'],
           'status': ['Success'],
      'networkCode': ['63902'],

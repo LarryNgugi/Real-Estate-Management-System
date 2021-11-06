@@ -42,7 +42,6 @@ staff_patterns = [
 
 urlpatterns = [
     path('mpesa_api/', include(mpesa_api_urls)),
-    # everything that starts with app2 urls， to app2 (app the name ) the urls. py to deal with
     path('staff/', include(staff_patterns)),
     path('', views.home, name='home'),
     path('contact/', views.contact, name="contact"),

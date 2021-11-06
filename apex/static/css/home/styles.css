@@ -1,0 +1,83 @@
+.header {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  color: #fff;
+
+}
+
+
+body{
+  background-color: #013220;
+  font-family: URW Chancery;
+
+}
+
+.vertical {
+  border-right: 2px solid #fff;
+  height: 350px;
+
+}
+.modal-dialog {
+    width: 300px;
+}
+.modal-footer {
+    height: 70px;
+    margin: 0;
+}
+.modal-footer .btn {
+    font-weight: bold;
+}
+.modal-footer .progress {
+    display: none;
+    height: 32px;
+    margin: 0;
+}
+.input-group-addon {
+    color: #fff;
+    background: #3276B1;
+}
+form {
+    width: 300px;
+    margin-right:10px;
+    font-family: URW Chancery;
+    bottom: auto;
+    top: 50%;
+}
+
+
+
+.btn-main{
+    display: inline-block;
+    outline: none;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+    border-radius: 500px;
+    transition-property: background-color,border-color,color,box-shadow,filter;
+    transition-duration: .3s;
+    border: 1px solid transparent;
+    letter-spacing: 2px;
+    min-width: 160px;
+    text-transform: uppercase;
+    white-space: normal;
+    font-weight: 700;
+    text-align: center;
+    padding: 16px 14px 18px;
+    color: #fff;
+    background-color: #15883e;
+    height: 48px;
+    font-family: URW Chancery;
+    border: none;
+
+}
+.btn-main:hover{
+    background-color: #1db954;
+    border: none;
+
+}
+
+
+

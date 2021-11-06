@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-z8&dnjbr(*n+o&cplcks)f+1l3)kqzdpfdap73_)2_z4()-p%r
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '76e8-105-163-0-49.ngrok.io', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'ce80-105-163-1-133.ngrok.io', 'localhost']
 
 
 # Application definition
@@ -124,9 +124,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR,'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIR = [
-    os.path.join(BASE_DIR,'blog/static/')
+    os.path.join(BASE_DIR, 'apex/static/')
 ]
 
 
@@ -149,5 +149,5 @@ AT_USER_NAME = 'sandbox'
 
 AT_FROM_VALUE = '2390'
 
-
+LOGIN_REDIRECT_URL = '/staff/profile'
 

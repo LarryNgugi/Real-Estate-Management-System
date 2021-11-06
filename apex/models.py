@@ -126,3 +126,5 @@ class DeliveryReport(models.Model):
 
     def __str__(self):
         return '{0}-{1}-{2}'.format(self.identifier, self.phoneNumber, self.status)  # noqa: E501
+
+# class Login(models.Model):
