@@ -87,3 +87,11 @@ class CreateSms(forms.Form):
         max_length=255,
         min_length=3,
         widget=forms.Textarea(attrs={"class": "form-control", "rows": 5, "cols": 20}))  # noqa: E501
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField(label=None, max_length=100, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Username'}), min_length=3, )
+
+    password = forms.CharField(label=None, max_length=255, min_length=3, widget=forms.TextInput(
+        attrs={'class': 'form-control', 'placeholder': 'Password'}))

@@ -28,26 +28,25 @@
             </a>
 
 
+
         <div class="row justify-content-right">
 
             <div class="card-body">
 
                 <table class="table table-bordered table-striped mb-4">
-                    <thead class="thead-inverse">
+                    <thead>
                       <tr>
-                        <th>Message ID</th>
-                        <th>Message</th>
-                        <th>To</th>
-                        <th>Status</th>
+                        <th>S/No</th>
+                        <th>Message Sent</th>
+                        <th>Receiver's Phone Number</th>
                       </tr>
                     </thead>
                     <tbody>
                     {% for sms in outbox %}
                     <tr>
-                      <td class="align-middle">{{ sms.messageId }}</td>
-                      <td class="align-middle">{{ sms.text|truncatechars:20 }}</td>
-                      <td class="align-middle">{{ sms.phone }}</td>
-                      <td class="align-middle"> ({{ sms.date|naturalday }}) {{ sms.status }}</td>
+                      <td>{{ sms.messageId }}</td>
+                      <td>{{ sms.text|truncatechars:20 }}</td>
+                      <td>{{ sms.phone }}</td>
                     </tr>
                     {% empty %}
                     <tr>

@@ -33,8 +33,8 @@ staff_patterns = [
     path('payments', views.payment, name='payment'),
     path('outbox', views.outbox, name='outbox'),
     path('create_sms/', views.create_sms, name="create_sms"),
-    path('incoming_message', views.incoming_message, name='incoming_message'),
-    path('incoming_delivery_reports', views.incoming_delivery_reports, name='incoming_delivery_reports'),
+    path('incoming_message/', views.incoming_message, name='incoming_message'),
+    path('incoming_delivery_reports/', views.incoming_delivery_reports, name='incoming_delivery_reports'),
     path('delivery_reports', views.delivery_reports, name='delivery_reports'),
     path('inbox', views.inbox, name='inbox'),
 
@@ -46,5 +46,4 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('contact/', views.contact, name="contact"),
     path('save_feedback', views.saveFeedback, name="save_feedback"),
-
 ]

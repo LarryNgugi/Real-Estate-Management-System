@@ -125,6 +125,6 @@ class DeliveryReport(models.Model):
         verbose_name_plural = ("Delivery Reports")
 
     def __str__(self):
-        return '{0}-{1}-{2}'.format(self.identifier, self.phoneNumber, self.status)  # noqa: E501
+        return '{0}-{1}-{2}'.format(self.identifier, self.phoneNumber, self.status)
 
-# class Login(models.Model):
+

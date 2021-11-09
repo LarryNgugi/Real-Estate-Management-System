@@ -23,17 +23,13 @@
 
                 <table class="table table-striped table-bordered mb-4">
 
-                    <thead class="thead-inverse">
-
-
+                    <thead>
                       <tr>
-                        <th>ID</th>
+                        <th>S/No </th>
                         <th>Date</th>
                         <th>Phone Number</th>
                         <th>Status</th>
                       </tr>
-
-
                     </thead>
 
 
@@ -43,10 +39,10 @@
 
                     <tr>
 
-                      <td class="align-middle">{{ d_report.identifier }} </td>
-                      <td class="align-middle">{{ d_report.date|naturaltime }}</td>
-                      <td class="align-middle">{{ d_report.phoneNumber }}</td>
-                      <td class="align-middle">{{ d_report.status}}</td>
+                      <td>{{ d_report.identifier }} </td>
+                      <td>{{ d_report.date|naturaltime }}</td>
+                      <td>{{ d_report.phoneNumber }}</td>
+                      <td>{{ d_report.status}}</td>
 
                     </tr>
 

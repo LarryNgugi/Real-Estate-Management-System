@@ -1,3 +1,5 @@
+from django.contrib import messages
+from django.contrib.auth import login, authenticate, logout
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 
@@ -147,15 +149,10 @@ def payment(request):
 
 def outbox(request):
     outbox = Outbox.objects.all()
-    search_term = ''
-    clicked = request.GET.get('clicked', 'outbox')
-    if 'search' in request.GET:
-        search_term = request.GET.get('search')
-        outbox = outbox.filter(text__icontains=search_term)
     paginator = Paginator(outbox, 100)
     page = request.GET.get('page')
     outbox = paginator.get_page(page)
-    context = {'outbox': outbox, 'active': clicked, 'search_term': search_term}
+    context = {'outbox': outbox}
     return render(request, 'apex/admin/outbox.html', context)
 
 
@@ -227,28 +224,26 @@ def incoming_delivery_reports(request):
 
 
 def delivery_reports(request):
-    clicked = request.GET.get('clicked')
     all_delivery_reports = DeliveryReport.objects.all()
-    paginator = Paginator(all_delivery_reports, 5)
+    paginator = Paginator(all_delivery_reports, 50)
     page = request.GET.get('page')
     all_delivery_reports = paginator.get_page(page)
-    context = {'all_delivery_reports': all_delivery_reports, 'active': clicked}
+    context = {'all_delivery_reports': all_delivery_reports}
     return render(request, "apex/admin/deliveryreports.html", context)
 
 
 def inbox(request):
-    clicked = request.GET.get('clicked')
     all_inbox_items = Inbox.objects.all()
-    search_term = ''
-    if 'search' in request.GET:
-        search_term = request.GET.get('search')
-        all_inbox_items = all_inbox_items.filter(text__icontains=search_term)
     paginator = Paginator(all_inbox_items, 5)
     page = request.GET.get('page')
     all_inbox_items = paginator.get_page(page)
     context = {
-        "all_inbox_items": all_inbox_items, 'active': clicked, 'search_term': search_term  # noqa: E501
+        "all_inbox_items": all_inbox_items
     }
     return render(request, "apex/admin/inbox.html", context)
 
+# Delivery report callback Url in Africanstalking
+# https://533d-105-163-2-125.ngrok.io/staff/incoming_delivery_reports/
 
+# Inbox Url callback in Africanstalking
+# https://533d-105-163-2-125.ngrok.io/staff/incoming_message/
