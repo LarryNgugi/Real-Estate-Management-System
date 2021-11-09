@@ -46,7 +46,7 @@
                                         {% endfor %}
 
 
-                                <button type="submit"  class="btn btn-secondary btn-lg">Submit</button>
+                                <button type="submit" onclick="ShowAlert"  class="btn btn-secondary btn-lg">Submit</button>
 
                             </form>
 
@@ -61,7 +61,17 @@
 {% endblock %}
 
 {%block 'scripts' %}
+    <script>
+    function  ShowAlert(){
 
+    Notiflix.Notify.Init({});
+    Notiflix.Notify.Success('Thank you for your message • It has been sent.');
+
+    }
+
+
+
+    </script>
 <!-- remained empty -->
 
 {% endblock %}

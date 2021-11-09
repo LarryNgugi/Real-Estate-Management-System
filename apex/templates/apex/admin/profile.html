@@ -34,15 +34,15 @@
                     <thead>
                         <tr>
                             
-                        <td>S/No</td>
-                        <td>H/No</td>
-                        <td>Full Names</td>
-                        <td>Phone Number</td>
-                        <td>ID/No</td>
-                        <td>Email</td>
-                        <td>Acc/No</td>
-                        <td>Amount</td>
-                        <td>Update</td>
+                        <th>S/No</th>
+                        <th>H/No</th>
+                        <th>Full Names</th>
+                        <th>Phone Number</th>
+                        <th>ID/No</th>
+                        <th>Email</th>
+                        <th>Acc/No</th>
+                        <th>Amount</th>
+                        <th>Update</th>
 
         
                         </tr>            
@@ -53,7 +53,7 @@
                     {% for profile in profile_list %}
 
                     <tr>
-                        <td>{{profile.id}}</td>
+                        <th>{{profile.id}}</th>
                         <td>{{profile.house_number}}</td>
                         <td>{{profile.name}}</td>
                         <td>{{profile.phone_number}}</td>

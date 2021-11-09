@@ -43,6 +43,7 @@ def contact(request):
 
 def profile(request):
     context = {}
+
     context['profile_list'] = Profile.objects.all()
 
     return render(request, "apex/admin/profile.html", context)
