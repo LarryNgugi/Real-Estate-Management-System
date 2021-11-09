@@ -22,7 +22,7 @@
 	<link rel="stylesheet" type="text/css" href=" {% static 'vendor/daterangepicker/daterangepicker.css' %} ">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href=" {% static 'css/contact/util.css' %} ">
-	<link rel="stylesheet" type="text/css" href=" {% static 'css/contact/main.css' %} ">
+    <link rel="stylesheet" type="text/css" href=" {% static 'css/contact/main.css' %} ">
 <!--===============================================================================================-->
 
 {% endblock 'css' %}
@@ -48,6 +48,12 @@
     
     <div class="container-contact100">
         <div class="wrap-contact100">
+
+            {% if submitted %}
+                   Your Feedback has been received we'll get back to  you asap.
+
+                {% else %}
+
             <form class="contact100-form validate-form" action=" {% url 'save_feedback' %} " method="POST" >
                 {% csrf_token %}
                 <span class="contact100-form-title">
@@ -90,6 +96,8 @@
                     </button>
                 </div>
             </form>
+
+            {% endif %}
 
             <div class="contact100-more flex-col-c-m back" style="background-image: url('/static/images/contact/bg-01.jpg');">
                 <div class="flex-w size1 p-b-47">

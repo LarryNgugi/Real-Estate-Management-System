@@ -9,10 +9,10 @@
     <div class="col-lg-12 col-md-12 col-sm-12">
 
             <div class="row">
-                <h3 class="mt-2 "> Nex Of Kin Details/Information ({{ nextofkin_list|length }}) </h3>
+                <h3 class="mt-2 "> Next Of Kin Details/Information ({{ nextofkin_list|length }}) </h3>
 
             </div>
- 
+
         <div class="row justify-content-right">
 
             <div class="card-body">
@@ -21,31 +21,32 @@
 
                     <thead>
                         <tr>
-                            
-                        <td>ID</td>
+
+                        <td>S/No</td>
                         <td>H/No</td>
                         <td>Full Names</td>
-                        <td>Phone Number</td>
                         <td>ID/No</td>
+                        <td>Phone Number</td>
                         <td>Email</td>
-                        <td>Action</td>
+                        <td>Relationship</td>
+{#                        <td>Action</td>#}
 
-        
-                        </tr>            
+                        </tr>
                     </thead>
-        
+
                     <tbody>
 
                     {% for nextofkin in nextofkin_list %}
 
                     <tr>
+
                         <td>{{nextofkin.id}}</td>
                         <td>{{nextofkin.house_number}}</td>
-                        <td>{{nextofkin.name}}</td>
-                        <td>{{nextofkin.phone_number}}</td>
-                        <td>{{nextofkin.id_number}}</td>
-                        <td>{{nextofkin.email }}</td>
-                        <td>{{nextofkin.amount}}</td>
+                        <td>{{nextofkin.kin_name}}</td>
+                        <td>{{nextofkin.kin_id_number}}</td>
+                        <td>{{nextofkin.kin_phone_number}}</td>
+                        <td>{{nextofkin.kin_email }}</td>
+                        <td>{{nextofkin.relationship }}</td>
 {#                        <td>#}
 {#                            <a href="{% url 'update_nextofkin' nextofkin.id %}" title="View Tenant" class="btn btn-success btn-sm">#}
 {#                                <i class="fa fa-eye" aria-hidden="true"></i>#}
@@ -57,12 +58,12 @@
                     {% endfor %}
 
 
-                                        
+
                     </tbody>
-        
+
                 </table>
             </div>
-        
+
 
         </div>
 

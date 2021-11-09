@@ -9,26 +9,23 @@
 
 <div class="container">
 
-    <h3 class="mx-3 my-3 text-success">
-        <i class=" fa fa-tags"></i>
-        {{ profile.account_number }} | {{ profile.house_number }} </h3>
+    <h3 class="mx-3 my-3"><i class="fa fa-star-o mr-2" aria-hidden="true"></i>
+        Update <span class="text-success">{{ profile.name}}</span> Details<i class="fa fa-star-o mx-2" aria-hidden="true"></i>
+         </h3>
 
     <div class="row justify-content-center">
 
-        <div class="col-lg-10 col-md-8 col-sm-12">
+        <div class="col-lg-8 col-md-8 col-sm-12">
 
             <div class="card-header">
 
-                <div class="row ">
+                    <h5 class="text-center">Tenant Details | {{ profile.house_number }}</h5>
 
-                    <h5>Update Tenant Details</h5>
-
-                </div>
             </div>
 
             <div class="card-body">
 
-                            <form method="POST" >
+                            <form method="POST">
 
                                 {% csrf_token %}
 

@@ -15,21 +15,22 @@
             <a href="#">
                 <i class="fa fa-money mr-2 " aria-hidden="true"></i>Accounts</a>
         </li>
-        
-        <li class="my-2 ">
-            <a href=" {% url 'profile'  %} ">
-                <i class="fa fa-user-o mr-2 " aria-hidden="true"></i>Client Profiles</a>
+
+         <li class="my-2 ">
+            <a href="{% url 'profile'  %}">
+                <i class="fa fa-user-o mr-2 " aria-hidden="true"></i>Client Profiles
+            </a>
         </li>
 
 
         <li class="my-2 ">
-            <a href="#">
+            <a href="{% url 'payment' %}">
                 <i class="fa fa-money mr-2 " aria-hidden="true"></i>Payments</a>
         </li>
         
         <li class="my-2 ">
-            <a href="#">
-                <i class="fa fa-files-o mr-2 " aria-hidden="true"></i>Documents</a>
+            <a href=" {% url 'outbox' %} ">
+                <i class="fa fa-files-o mr-2 " aria-hidden="true"></i>Sms Reports</a>
         </li>
 
         <li class="my-2 ">

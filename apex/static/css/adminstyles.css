@@ -45,7 +45,7 @@
 }
 #sidebar ul.components {
     padding: 20px 0;
-    border-bottom: 1px solid #47748b;
+    border-bottom: 1px solid #292e39;
 }
 
 
@@ -66,12 +66,12 @@
 
 #sidebar ul li.active > a, a[aria-expanded="true"] {
     color: #fff;
-    background: #6d7fcc;
+    background: #292e39;
 }
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #6d7fcc;
+    background: #292e39;
 }
 a[data-toggle="collapse"] {
     position: relative;

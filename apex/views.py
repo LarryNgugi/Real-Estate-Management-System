@@ -1,12 +1,28 @@
+from django.contrib import messages
+from django.contrib.auth import login, authenticate, logout
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
-from django.views.generic import UpdateView
+from django.shortcuts import render, redirect
 
-from .forms import ProfileForm, NextOfKinForm
-from .models import Feedback, Profile, NextOfKin
+from .forms import ProfileForm, ProfilesForm
+from .models import Feedback, Profile
+from mpesa_api.models import MpesaPayment
+
+import datetime
+
+from django.http import HttpResponse
+from django.utils.timezone import make_aware
+from django.shortcuts import render, redirect
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+from django.core.paginator import Paginator
+
+from .forms import CreateSms
+from .models import Outbox, Inbox, DeliveryReport
 
 
 # Create your views here.
+
+
 def home(request):
     context = {
 
@@ -47,9 +63,17 @@ def saveProfile(request):
             house_number = form.cleaned_data['house_number']
             account_number = form.cleaned_data['account_number']
             amount = form.cleaned_data['amount']
+            NextOfKinName = form.cleaned_data['NextOfKinName']
+            NextOfKinId_number = form.cleaned_data['NextOfKinId_number']
+            NextOfKinPhone_number = form.cleaned_data['NextOfKinPhone_number']
+            NextOfKinEmail = form.cleaned_data['NextOfKinEmail']
+            relationship = form.cleaned_data['relationship']
 
             Profile.objects.create(name=name, email=email, phone_number=phone_number, house_number=house_number
-                                   , id_number=id_number, account_number=account_number, amount=amount)
+                                   , id_number=id_number, account_number=account_number, amount=amount,
+                                   kin_name=NextOfKinName
+                                   , kin_id_number=NextOfKinId_number, kin_phone_number=NextOfKinPhone_number,
+                                   kin_email=NextOfKinEmail, relationship=relationship)
 
             return HttpResponseRedirect(redirect_url)
 
@@ -72,29 +96,6 @@ def nextOfKin(request):
     context['nextofkin_list'] = Profile.objects.all()
 
     return render(request, 'apex/admin/NextOfKin.html', context)
-
-
-def saveNextOfKin(request):
-    redirect_url = '/staff/profile'
-
-    if request.method == 'POST':
-
-        form = NextOfKinForm(request.POST)
-
-        if form.is_valid():
-            name = form.cleaned_data['name']
-            email = form.cleaned_data['email']
-            phone_number = form.cleaned_data['phone_number']
-            id_number = form.cleaned_data['id_number']
-
-            NextOfKin.objects.create(name=name, email=email, phone_number=phone_number, id_number=id_number)
-
-            return HttpResponseRedirect(redirect_url)
-
-        else:
-            form = NextOfKin()
-
-        return render(request, 'apex/admin/profile_form.html', {'form': form})
 
 
 def saveFeedback(request):
@@ -127,8 +128,122 @@ def deleteFeedback(request, id):
     return HttpResponseRedirect('/staff/feedback')
 
 
-class ProfileUpdate(UpdateView):
-    model = Profile
-    fields = ['name', 'id_number', 'phone_number', 'email', 'house_number', 'account_number', 'amount']
-    success_url = '/staff/profile'
-    template_name = 'apex/admin/update.html'
+def updateProfile(request, id):
+    our_profile = Profile.objects.get(pk=id)
+    form = ProfilesForm(request.POST or None, instance=our_profile)
+
+    if form.is_valid():
+        form.save()
+
+        return redirect('/staff/profile')
+
+    return render(request, 'apex/admin/update.html', {'form': form, 'profile': our_profile})
+
+
+def payment(request):
+    context = {}
+    context['payments_list'] = MpesaPayment.objects.all()
+
+    return render(request, 'apex/admin/payment.html', context)
+
+
+def outbox(request):
+    outbox = Outbox.objects.all()
+    paginator = Paginator(outbox, 100)
+    page = request.GET.get('page')
+    outbox = paginator.get_page(page)
+    context = {'outbox': outbox}
+    return render(request, 'apex/admin/outbox.html', context)
+
+
+def create_sms(request):
+    form = CreateSms()
+    if request.method == "POST":
+        form = CreateSms(request.POST)
+        if form.is_valid():
+            phone_number = form.cleaned_data.get("phone_number")
+            message = form.cleaned_data.get("message")
+            Outbox.send(phone_number, message)
+            return redirect('outbox')
+    return render(request, "apex/admin/createSms.html", {"form": form})
+
+
+@csrf_exempt
+@require_POST
+def incoming_message(request):
+    """
+    sample incoming message from phone through AfricasTalking API
+    {  'from': ['+254714389500'],
+     'linkId': ['28a92cdf-2d63-4ee3-93df-4233d3de0356'],
+       'text': ['heey this is a message from a phone'],
+         'id': ['b68d0989-d856-494f-92ee-7c439e96e1d9'],
+       'date': ['2021-01-14 08:10:15'],
+         'to': ['2390'] }
+    """
+    date = request.POST.get('date')
+    text = request.POST.get('text')
+    phoneNo = request.POST.get('from')
+    to = request.POST.get('to')
+    linkId = request.POST.get('linkId')
+    date = datetime.datetime.strptime(date, '%Y-%m-%d %H:%M:%S')
+    aware_datetime = make_aware(date)
+    Inbox_object = Inbox(
+        date=aware_datetime,
+        text=text,
+        phone=phoneNo,
+        to=to,
+        linkId=linkId
+    )
+    Inbox_object.save()
+    return HttpResponse(status=200)
+
+
+@csrf_exempt
+@require_POST
+def incoming_delivery_reports(request):
+    """
+    sample delivery report from Africas Talking API
+    {'phoneNumber': ['+254714389500'],
+      'retryCount': ['0'],
+          'status': ['Success'],
+     'networkCode': ['63902'],
+              'id': ['ATXid_29bc0ee2e3566472cd947d2f2918ab2f']}>
+    """
+    phoneNumber = request.POST.get('phoneNumber')
+    retryCount = request.POST.get('retryCount')
+    status = request.POST.get('status')
+    networkCode = request.POST.get('networkCode')
+    identifier = request.POST.get('id')
+    DeliveryReport_object = DeliveryReport(identifier=identifier,
+                                           phoneNumber=phoneNumber,
+                                           retryCount=retryCount,
+                                           status=status,
+                                           networkCode=networkCode)
+    DeliveryReport_object.save()
+    return HttpResponse(status=200)
+
+
+def delivery_reports(request):
+    all_delivery_reports = DeliveryReport.objects.all()
+    paginator = Paginator(all_delivery_reports, 50)
+    page = request.GET.get('page')
+    all_delivery_reports = paginator.get_page(page)
+    context = {'all_delivery_reports': all_delivery_reports}
+    return render(request, "apex/admin/deliveryreports.html", context)
+
+
+def inbox(request):
+    all_inbox_items = Inbox.objects.all()
+    paginator = Paginator(all_inbox_items, 5)
+    page = request.GET.get('page')
+    all_inbox_items = paginator.get_page(page)
+    context = {
+        "all_inbox_items": all_inbox_items
+    }
+    return render(request, "apex/admin/inbox.html", context)
+
+# Delivery report callback Url in Africanstalking
+# https://533d-105-163-2-125.ngrok.io/staff/incoming_delivery_reports/
+
+# Inbox Url callback in Africanstalking
+# https://533d-105-163-2-125.ngrok.io/staff/incoming_message/
