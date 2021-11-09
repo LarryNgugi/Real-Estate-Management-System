@@ -11,8 +11,22 @@
     <div class="col-lg-12 col-md-12 col-sm-12">
 
             <div class="row">
-                <h3 class="mt-2 "> Inbox </h3>
+                <h3 class="mt-2 font-weight-bold"> Inbox ({{ all_inbox_items|length }}) </h3>
 
+
+                <form class="form-inline my-2 my-lg-1 mt-3 ml-auto">
+                                    {% csrf_token %}
+
+                <input
+                    class="form-control mr-sm-2"
+                    type="search"
+                    placeholder="Search"
+                    aria-label="Search"
+                    name='search'
+                    value="{{search_term}}">
+                <input type="hidden" name="clicked" value="outbox">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+             </form>
             </div>
 
         <div class="row justify-content-right">
@@ -30,7 +44,7 @@
                     <tbody>
                     {% for inbox in all_inbox_items %}
                     <tr>
-                      <td>{{ inbox.date|naturaltime }}</td>
+                      <td>{{ inbox.date|naturaltime|naturalday }}</td>
                       <td>{{ inbox.text }}</td>
                       <td>{{ inbox.phone }}</td>
                     </tr>

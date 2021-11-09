@@ -19,7 +19,7 @@
 
             <div class="card-header">
 
-                    <h5 class="text-center">Tenant Details | {{ profile.house_number }}</h5>
+                    <h5 class="text-center font-weight-bold">Tenant Details | {{ profile.house_number }}</h5>
 
             </div>
 
@@ -46,7 +46,7 @@
                                         {% endfor %}
 
 
-                                <button type="submit"  class="btn btn-secondary btn-lg">Submit</button>
+                                <button type="submit" onclick="ShowAlert"  class="btn btn-secondary btn-lg">Submit</button>
 
                             </form>
 
@@ -61,7 +61,17 @@
 {% endblock %}
 
 {%block 'scripts' %}
+    <script>
+    function  ShowAlert(){
 
+    Notiflix.Notify.Init({});
+    Notiflix.Notify.Success('Thank you for your message • It has been sent.');
+
+    }
+
+
+
+    </script>
 <!-- remained empty -->
 
 {% endblock %}
