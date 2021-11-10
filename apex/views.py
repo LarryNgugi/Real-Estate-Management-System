@@ -1,38 +1,52 @@
 from django.contrib import messages
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import login, authenticate, logout as auth_logout
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
-
 from .forms import ProfileForm, ProfilesForm
 from .models import Feedback, Profile
 from mpesa_api.models import MpesaPayment
-
 import datetime
-
 from django.http import HttpResponse
 from django.utils.timezone import make_aware
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.core.paginator import Paginator
-
 from .forms import CreateSms
 from .models import Outbox, Inbox, DeliveryReport
+from django.contrib.auth.forms import AuthenticationForm
 
 
 # Create your views here.
 
 
 def home(request):
-    context = {
+    if request.method == 'POST':
+        form = AuthenticationForm(request=request, data=request.POST)
 
-        'Phone': '0714389500',
-        'Email': 'larry.josephgithaka@gmail.com',
-        'address': ["513-10200", "Nairobi,Kenya"],
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
 
-    }
+            user = authenticate(username=username, password=password)
 
-    return render(request, "home.html", context)
+            if user is not None:
+                login(request, user)
+
+                return redirect('staff/profile')
+
+    else:
+        form = AuthenticationForm()
+
+    return render(request, template_name="home.html", context={"form": form})
+
+
+@login_required
+def logout(request):
+    auth_logout(request)
+    messages.info(request, "Logged out successfully!")
+
+    return HttpResponseRedirect("home.html")
 
 
 def contact(request):
@@ -41,6 +55,7 @@ def contact(request):
     return render(request, "contact.html", context)
 
 
+@login_required
 def profile(request):
     context = {}
 
@@ -49,6 +64,7 @@ def profile(request):
     return render(request, "apex/admin/profile.html", context)
 
 
+@login_required
 def saveProfile(request):
     redirect_url = '/staff/profile'
 
@@ -84,6 +100,7 @@ def saveProfile(request):
     return render(request, 'apex/admin/profile_form.html', {'form': form})
 
 
+@login_required
 def deleteProfile(request, id):
     our_profile = Profile.objects.get(pk=id)
     our_profile.delete()
@@ -91,6 +108,7 @@ def deleteProfile(request, id):
     return HttpResponseRedirect('/staff/profile')
 
 
+@login_required
 def nextOfKin(request):
     context = {}
 
@@ -99,6 +117,7 @@ def nextOfKin(request):
     return render(request, 'apex/admin/NextOfKin.html', context)
 
 
+@login_required
 def saveFeedback(request):
     first_name = request.POST.get("first_name")
     last_name = request.POST.get("last_name")
@@ -114,6 +133,7 @@ def saveFeedback(request):
     return HttpResponseRedirect('/contact')
 
 
+@login_required
 def showFeedback(request):
     context = {}
 
@@ -122,6 +142,7 @@ def showFeedback(request):
     return render(request, 'apex/admin/feedback.html', context)
 
 
+@login_required
 def deleteFeedback(request, id):
     our_feedback = Feedback.objects.get(pk=id)
     our_feedback.delete()
@@ -129,6 +150,7 @@ def deleteFeedback(request, id):
     return HttpResponseRedirect('/staff/feedback')
 
 
+@login_required
 def updateProfile(request, id):
     our_profile = Profile.objects.get(pk=id)
     form = ProfilesForm(request.POST or None, instance=our_profile)
@@ -141,6 +163,7 @@ def updateProfile(request, id):
     return render(request, 'apex/admin/update.html', {'form': form, 'profile': our_profile})
 
 
+@login_required
 def payment(request):
     context = {}
     context['payments_list'] = MpesaPayment.objects.all()
@@ -148,6 +171,7 @@ def payment(request):
     return render(request, 'apex/admin/payment.html', context)
 
 
+@login_required
 def outbox(request):
     outbox = Outbox.objects.all()
     search_term = ''
@@ -162,6 +186,7 @@ def outbox(request):
     return render(request, 'apex/admin/outbox.html', context)
 
 
+@login_required
 def create_sms(request):
     form = CreateSms()
     if request.method == "POST":
@@ -229,6 +254,7 @@ def incoming_delivery_reports(request):
     return HttpResponse(status=200)
 
 
+@login_required
 def delivery_reports(request):
     clicked = request.GET.get('clicked')
     all_delivery_reports = DeliveryReport.objects.all()
@@ -243,6 +269,7 @@ def delivery_reports(request):
     return render(request, "apex/admin/deliveryreports.html", context)
 
 
+@login_required
 def inbox(request):
     clicked = request.GET.get('clicked')
     all_inbox_items = Inbox.objects.all()

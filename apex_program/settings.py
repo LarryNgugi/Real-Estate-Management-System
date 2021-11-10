@@ -148,5 +148,6 @@ AT_USER_NAME = 'sandbox'
 
 AT_FROM_VALUE = '2390'
 
+LOGIN_URL = 'home'
 LOGIN_REDIRECT_URL = '/staff/profile'
 
