@@ -52,7 +52,11 @@
 
 
 				</form>
-
+{% for message in messages %}
+    <div class="message {{ message.tags }}">
+        {{ message }}
+    </div>
+{% endfor %}
 {#            <form method="POST" action=" {% url 'pay' %} ">#}
 {##}
 {#                {% csrf_token %}#}
