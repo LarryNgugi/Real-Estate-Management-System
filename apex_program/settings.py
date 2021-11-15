@@ -144,6 +144,6 @@ AT_FROM_VALUE = '2390'
 LOGIN_URL = 'home'
 LOGIN_REDIRECT_URL = '/staff/profile'
 
-AUTO_LOGOUT = {'IDLE_TIME': 10,
+AUTO_LOGOUT = {'IDLE_TIME': 600,
                'MESSAGE': 'The session has expired. Please login again to continue.'
                }

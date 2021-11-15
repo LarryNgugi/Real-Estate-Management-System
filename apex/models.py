@@ -59,6 +59,14 @@ class Feedback(models.Model):
         verbose_name_plural = 'Feedback'
 
 
+class Houses(models.Model):
+    house_number = models.CharField(max_length=50, blank=False, null=True)
+    size = models.CharField(max_length=50, blank=False, null=True)
+    amount = models.IntegerField(default=0, blank=False, null=False)
+    residence = models.CharField(max_length=50, blank=False, null=True)
+    status = models.CharField(max_length=50, blank=False, null=True)
+
+
 class Outbox(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=10, blank=True, null=True)
@@ -126,5 +134,3 @@ class DeliveryReport(models.Model):
 
     def __str__(self):
         return '{0}-{1}-{2}'.format(self.identifier, self.phoneNumber, self.status)
-
-

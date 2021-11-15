@@ -3,7 +3,7 @@ from django.contrib.auth import login, authenticate, logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from .forms import ProfileForm, ProfilesForm
-from .models import Feedback, Profile
+from .models import Feedback, Profile, Houses
 from mpesa_api.models import MpesaPayment
 import datetime
 from django.http import HttpResponse
@@ -169,6 +169,13 @@ def payment(request):
     context['payments_list'] = MpesaPayment.objects.all()
 
     return render(request, 'apex/admin/payment.html', context)
+
+
+def houses(request):
+    context = {}
+    context['houses_list'] = Houses.objects.all()
+
+    return render(request, 'apex/admin/house.html')
 
 
 @login_required

@@ -95,3 +95,6 @@ class LoginForm(forms.Form):
 
     password = forms.CharField(label=None, max_length=255, min_length=3, widget=forms.TextInput(
         attrs={'class': 'form-control', 'placeholder': 'Password'}))
+
+
+class HousesForm(forms.Form):
