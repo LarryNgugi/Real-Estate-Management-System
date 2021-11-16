@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Profile
+from .models import Profile, Houses
 
 RELATIONSHIP_CHOICES = [
     ('Spouse', 'Spouse'),
@@ -9,6 +9,30 @@ RELATIONSHIP_CHOICES = [
     ('Guardian', 'Guardian'),
     ('Sibling', 'Sibling'),
     ('Other', 'Other'),
+]
+
+HOUSE_CHOICES = [
+    ('Single Room', 'Single Room'),
+    ('Bedsitter', 'Bedsitter'),
+    ('One Bedroom', 'One Bedroom'),
+    ('Two Bedroom', 'Two Bedroom'),
+    ('Three Bedroom', 'Three Bedroom'),
+    ('Four Bedroom', 'Four Bedroom'),
+    ('Other', 'Other'),
+]
+
+LOCATION_CHOICES = [
+    ('Apex Apartment', 'Apex Apartment'),
+    ('Nguwa Apartment', 'Nguwa Apartment'),
+    ('Bethany Apartment', 'Bethany Apartment'),
+    ('Kiharu Apartment', 'Kiharu Apartment'),
+    ('Vidhu Apartment', 'Vidhu Apartment'),
+    ('Other', 'Other'),
+]
+
+STATUS_CHOICES = [
+    ('Occupied', 'Occupied'),
+    ('Vacant', 'Vacant'),
 ]
 
 
@@ -98,3 +122,36 @@ class LoginForm(forms.Form):
 
 
 class HousesForm(forms.Form):
+    house_number = forms.CharField(label='House Number', max_length=50,
+                                   widget=forms.TextInput(attrs={'placeholder': 'Tenant House Number'}))
+    size = forms.CharField(label='House Type', max_length=20, widget=forms.Select(choices=HOUSE_CHOICES))
+    amount = forms.IntegerField(label='House Amount',
+                                widget=forms.TextInput(attrs={'placeholder': 'House Amount'}))
+    location = forms.CharField(label='Location', widget=forms.Select(choices=LOCATION_CHOICES))
+    status = forms.CharField(label='Status', widget=forms.Select(choices=STATUS_CHOICES))
+
+
+class HouseForm(forms.ModelForm):
+    class Meta:
+        model = Houses
+
+        fields = ['house_number', 'size', 'amount', 'location', 'status'
+                  ]
+
+        labels = {
+
+            'house_number': 'House Number',
+            'size': 'House Type',
+            'amount': 'House Amount',
+            'location': 'Location',
+            'status': 'Status',
+
+        }
+
+        widgets = {
+            'house_number': forms.TextInput(attrs={'placeholder': 'Tenant House Number'}),
+            'size': forms.Select(choices=HOUSE_CHOICES),
+            'location': forms.Select(choices=LOCATION_CHOICES),
+            'amount': forms.TextInput(attrs={'placeholder': 'Tenant House Amount'}),
+            'status': forms.Select(choices=STATUS_CHOICES),
+        }

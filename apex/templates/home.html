@@ -25,7 +25,6 @@
             <h1 >Apex Apartments & Co</h1>
 {#             <div class="vertical"></div>#}
 
-
                 <form method="POST"  class="float-lg-right mr-5">
                  {% csrf_token %}
 
@@ -44,19 +43,22 @@
                     </div>
                     {% endfor %}
 
-                    <button class="form-control btn btn-main mt-3" type="submit">Login</button>
-
                     {% if form.errors %}
+
                         <p class="text-center mt-2 mb-2"> Invalid username or password.</p>
+
                     {% endif %}
 
+                    <button class="form-control btn btn-main mt-3" type="submit">Login</button>
 
 				</form>
-{% for message in messages %}
-    <div class="message {{ message.tags }}">
-        {{ message }}
-    </div>
-{% endfor %}
+
+                {% for message in messages %}
+                    <div class="message {{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+
 {#            <form method="POST" action=" {% url 'pay' %} ">#}
 {##}
 {#                {% csrf_token %}#}

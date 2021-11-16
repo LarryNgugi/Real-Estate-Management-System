@@ -1,8 +1,10 @@
+import random
+
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from .forms import ProfileForm, ProfilesForm
+from .forms import ProfileForm, ProfilesForm, HousesForm, HouseForm
 from .models import Feedback, Profile, Houses
 from mpesa_api.models import MpesaPayment
 import datetime
@@ -171,13 +173,6 @@ def payment(request):
     return render(request, 'apex/admin/payment.html', context)
 
 
-def houses(request):
-    context = {}
-    context['houses_list'] = Houses.objects.all()
-
-    return render(request, 'apex/admin/house.html')
-
-
 @login_required
 def outbox(request):
     outbox = Outbox.objects.all()
@@ -292,8 +287,71 @@ def inbox(request):
     }
     return render(request, "apex/admin/inbox.html", context)
 
+
 # Delivery report callback Url in AfricansTalking
 # https://533d-105-163-2-125.ngrok.io/staff/incoming_delivery_reports/
 
 # Inbox Url callback in AfricansTalking
 # https://533d-105-163-2-125.ngrok.io/staff/incoming_message/
+
+@login_required()
+def houses(request):
+    context = {}
+    context['houses_list'] = Houses.objects.all()
+
+    return render(request, 'apex/admin/house.html', context)
+
+
+@login_required()
+def saveHouses(request):
+    redirect_url = '/staff/house'
+    if request.method == 'POST':
+
+        form = HousesForm(request.POST)
+
+        if form.is_valid():
+            house_number = form.cleaned_data['house_number']
+            amount = form.cleaned_data['amount']
+            size = form.cleaned_data['size']
+            location = form.cleaned_data['location']
+            status = form.cleaned_data['status']
+
+            Houses.objects.create(house_number=house_number, amount=amount, size=size, location=location, status=status)
+
+            return HttpResponseRedirect(redirect_url)
+
+    else:
+
+        form = HousesForm()
+
+    return render(request, 'apex/admin/house_form.html', {'form': form})
+
+
+def updateHouse(request, id):
+    our_house = Houses.objects.get(pk=id)
+    form = HouseForm(request.POST or None, instance=our_house)
+
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect('/staff/house')
+
+    return render(request, 'apex/admin/house_update.html', {'form': form, 'profile': our_house})
+
+
+def invoice(request):
+    context = {}
+
+    context['invoice_list'] = Invoice.objects.all()
+
+    return render(request, 'apex/admin/invoice.html', context)
+
+
+def increment_invoice_number():
+    last_invoice = Invoice.objects.all().order_by('id').last()
+    if not last_invoice:
+        return 'MAG0001'
+    invoice_no = last_invoice.invoice_no
+    invoice_int = int(invoice_no.split('MAG')[-1])
+    new_invoice_int = invoice_int + 1
+    new_invoice_no = 'MAG' + str(new_invoice_int)
+    return new_invoice_no

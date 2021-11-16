@@ -19,7 +19,6 @@ from django.urls.conf import include
 from apex import views
 from mpesa_api import urls as mpesa_api_urls
 
-
 staff_patterns = [
     path('feedback', views.showFeedback, name='feedback'),
     path('delete/feedback <id>', views.deleteFeedback, name='delete_feedback'),
@@ -35,7 +34,10 @@ staff_patterns = [
     path('incoming_message/', views.incoming_message, name='incoming_message'),
     path('incoming_delivery_reports/', views.incoming_delivery_reports, name='incoming_delivery_reports'),
     path('delivery_reports', views.delivery_reports, name='delivery_reports'),
-    path('house', views.houses, name='house')
+    path('house', views.houses, name='house'),
+    path('create/house', views.saveHouses, name='house_form'),
+    path('update/house/<id>', views.updateHouse, name='update_house'),
+    path('invoice', views.invoice, name='invoice')
 ]
 
 urlpatterns = [

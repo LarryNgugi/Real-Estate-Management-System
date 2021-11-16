@@ -9,7 +9,7 @@
     <div class="col-lg-12 col-md-12 col-sm-12">
 
             <div class="row">
-                <h3 class="mt-2 font-weight-bold"> Tenant Details/Information ({{ profile_list|length }}) </h3>
+                <h3 class="mt-2 font-weight-bold"> Tenant Details ({{ profile_list|length }}) </h3>
 
             </div>
 
@@ -43,6 +43,7 @@
                         <th>Acc/No</th>
                         <th>Amount</th>
                         <th>Update</th>
+                        <th>Invoice</th>
 
         
                         </tr>            
@@ -66,13 +67,14 @@
                                 <i class="fa fa-eye" aria-hidden="true"></i>
                             </a>
                         </td>
+                        <td>
+                            <a href="{% url 'invoice' %}" title=" {{ profile.house_number }} Invoices" class="btn btn-success">Invoice</a>
+                        </td>
 
                     </tr>
 
                     {% endfor %}
 
-
-                                        
                     </tbody>
         
                 </table>

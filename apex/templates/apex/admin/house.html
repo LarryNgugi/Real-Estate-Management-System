@@ -13,7 +13,7 @@
 
             </div>
 
-             <a class="btn btn-success my-3 mx-2" href="#">
+             <a class="btn btn-success my-3 mx-2" href="{% url 'house_form' %}">
             + Add New House Detail
             </a>
 
@@ -46,12 +46,17 @@
 
                     <tr>
 
-                    <td>{{ house.id }}</td>
+                    <th>{{ house.id }}</th>
                     <td>{{ house.house_number }}</td>
                     <td>{{ house.size }}</td>
                     <td>{{ house.amount }}</td>
-                    <td>{{ house.residence }}</td>
+                    <td>{{ house.location }}</td>
                     <td>{{ house.status }}</td>
+                    <td>
+                            <a href="{% url 'update_house' house.id %}" title="View {{ house.house_number }} Details" class="btn btn-success btn-sm">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                            </a>
+                        </td>
 
                     </tr>
 

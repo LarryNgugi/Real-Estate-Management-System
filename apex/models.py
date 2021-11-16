@@ -1,15 +1,11 @@
-import profile
-
 import requests
-
 from django.db import models
 from django.conf import settings
-
-
 # from mpesa_api.models import MpesaPayment
 
-
 # Create your models here.
+
+
 class Profile(models.Model):
     name = models.CharField(max_length=100, blank=False, null=True)
     kin_name = models.CharField(max_length=100, blank=False, null=True)
@@ -63,7 +59,7 @@ class Houses(models.Model):
     house_number = models.CharField(max_length=50, blank=False, null=True)
     size = models.CharField(max_length=50, blank=False, null=True)
     amount = models.IntegerField(default=0, blank=False, null=False)
-    residence = models.CharField(max_length=50, blank=False, null=True)
+    location = models.CharField(max_length=50, blank=False, null=True)
     status = models.CharField(max_length=50, blank=False, null=True)
 
 
