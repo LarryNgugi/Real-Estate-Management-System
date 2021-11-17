@@ -1,11 +1,12 @@
 import random
+from uuid import uuid4
 
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from .forms import ProfileForm, ProfilesForm, HousesForm, HouseForm
-from .models import Feedback, Profile, Houses
+from .models import Feedback, Profile, Houses, Invoice
 from mpesa_api.models import MpesaPayment
 import datetime
 from django.http import HttpResponse
@@ -59,9 +60,9 @@ def contact(request):
 
 @login_required
 def profile(request):
-    context = {}
-
-    context['profile_list'] = Profile.objects.all()
+    context = {
+        'profile_list': Profile.objects.all()
+    }
 
     return render(request, "apex/admin/profile.html", context)
 
@@ -76,7 +77,6 @@ def saveProfile(request):
 
         if form.is_valid():
             name = form.cleaned_data['name']
-            email = form.cleaned_data['email']
             phone_number = form.cleaned_data['phone_number']
             id_number = form.cleaned_data['id_number']
             house_number = form.cleaned_data['house_number']
@@ -85,14 +85,14 @@ def saveProfile(request):
             NextOfKinName = form.cleaned_data['NextOfKinName']
             NextOfKinId_number = form.cleaned_data['NextOfKinId_number']
             NextOfKinPhone_number = form.cleaned_data['NextOfKinPhone_number']
-            NextOfKinEmail = form.cleaned_data['NextOfKinEmail']
             relationship = form.cleaned_data['relationship']
+            date = form.cleaned_data['date']
 
-            Profile.objects.create(name=name, email=email, phone_number=phone_number, house_number=house_number
+            Profile.objects.create(name=name, phone_number=phone_number, house_number=house_number
                                    , id_number=id_number, account_number=account_number, amount=amount,
-                                   kin_name=NextOfKinName
+                                   kin_name=NextOfKinName, date=date
                                    , kin_id_number=NextOfKinId_number, kin_phone_number=NextOfKinPhone_number,
-                                   kin_email=NextOfKinEmail, relationship=relationship)
+                                   relationship=relationship)
 
             return HttpResponseRedirect(redirect_url)
 
@@ -339,19 +339,9 @@ def updateHouse(request, id):
 
 
 def invoice(request):
-    context = {}
-
-    context['invoice_list'] = Invoice.objects.all()
+    context = {
+        'invoice_list': Invoice.objects.all()
+        }
 
     return render(request, 'apex/admin/invoice.html', context)
 
-
-def increment_invoice_number():
-    last_invoice = Invoice.objects.all().order_by('id').last()
-    if not last_invoice:
-        return 'MAG0001'
-    invoice_no = last_invoice.invoice_no
-    invoice_int = int(invoice_no.split('MAG')[-1])
-    new_invoice_int = invoice_int + 1
-    new_invoice_no = 'MAG' + str(new_invoice_int)
-    return new_invoice_no

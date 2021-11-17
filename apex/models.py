@@ -1,9 +1,22 @@
 import requests
 from django.db import models
 from django.conf import settings
-# from mpesa_api.models import MpesaPayment
+from mpesa_api.models import MpesaPayment
+
 
 # Create your models here.
+class Houses(models.Model):
+    house_number = models.CharField(max_length=50, blank=False, null=True)
+    size = models.CharField(max_length=50, blank=False, null=True)
+    amount = models.IntegerField(default=0, blank=False, null=False)
+    location = models.CharField(max_length=50, blank=False, null=True)
+    status = models.CharField(max_length=50, blank=False, null=True)
+
+    class Meta:
+        verbose_name_plural = 'Houses'
+
+    def __str__(self):
+        return self.house_number
 
 
 class Profile(models.Model):
@@ -11,22 +24,21 @@ class Profile(models.Model):
     kin_name = models.CharField(max_length=100, blank=False, null=True)
     id_number = models.IntegerField(blank=False, null=True)
     kin_id_number = models.IntegerField(blank=False, null=True)
-    email = models.EmailField(max_length=100, blank=True, null=True)
-    kin_email = models.EmailField(max_length=100, blank=True, null=True)
     phone_number = models.CharField(max_length=15, blank=True, null=True)
     kin_phone_number = models.CharField(max_length=15, blank=True, null=True)
-    house_number = models.CharField(max_length=50, blank=False, null=True)
     account_number = models.CharField(max_length=50, blank=False, null=True)
     amount = models.IntegerField(blank=True, null=True)
     relationship = models.CharField(max_length=100, blank=False, null=True)
+    house_number = models.CharField(max_length=50, blank=False, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    date = models.DateField(null=True)
 
     class Meta:
         verbose_name_plural = 'Profile'
 
     def __str__(self):
-        return self.account_number
+        return self.house_number
 
 
 class Account(models.Model):
@@ -55,12 +67,11 @@ class Feedback(models.Model):
         verbose_name_plural = 'Feedback'
 
 
-class Houses(models.Model):
+class Invoice(models.Model):
     house_number = models.CharField(max_length=50, blank=False, null=True)
-    size = models.CharField(max_length=50, blank=False, null=True)
+    phone_number = models.CharField(max_length=15, blank=True, null=True)
     amount = models.IntegerField(default=0, blank=False, null=False)
-    location = models.CharField(max_length=50, blank=False, null=True)
-    status = models.CharField(max_length=50, blank=False, null=True)
+    name = models.CharField(max_length=100, blank=False, null=True)
 
 
 class Outbox(models.Model):

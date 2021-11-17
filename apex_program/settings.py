@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-z8&dnjbr(*n+o&cplcks)f+1l3)kqzdpfdap73_)2_z4()-p%r
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '1007-105-163-2-127.ngrok.io', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', '4e37-105-163-1-222.ngrok.io', 'localhost']
 
 # Application definition
 
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'mpesa_api.apps.MpesaApiConfig',
     'widget_tweaks',
     'django.contrib.humanize',
+    'bootstrap_datepicker_plus',
 ]
 
 MIDDLEWARE = [
@@ -144,6 +145,6 @@ AT_FROM_VALUE = '2390'
 LOGIN_URL = 'home'
 LOGIN_REDIRECT_URL = '/staff/profile'
 
-AUTO_LOGOUT = {'IDLE_TIME': 600,
+AUTO_LOGOUT = {'IDLE_TIME': 1000,
                'MESSAGE': 'The session has expired. Please login again to continue.'
                }

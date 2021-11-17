@@ -36,12 +36,12 @@
                             
                         <th>S/No</th>
                         <th>H/No</th>
-                        <th>Full Names</th>
+                        <th>Client Name</th>
                         <th>Phone Number</th>
                         <th>ID/No</th>
-                        <th>Email</th>
                         <th>Acc/No</th>
                         <th>Amount</th>
+                        <th>Date E/N</th>
                         <th>Update</th>
                         <th>Invoice</th>
 
@@ -59,9 +59,9 @@
                         <td>{{profile.name}}</td>
                         <td>{{profile.phone_number}}</td>
                         <td>{{profile.id_number}}</td>
-                        <td>{{profile.email }}</td>
                         <td>{{profile.account_number}}</td>
                         <td>{{profile.amount}}</td>
+                        <td>{{profile.date}}</td>
                         <td>
                             <a href="{% url 'update_profile' profile.id %}" title="View Tenant" class="btn btn-success btn-sm">
                                 <i class="fa fa-eye" aria-hidden="true"></i>

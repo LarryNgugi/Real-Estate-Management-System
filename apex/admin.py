@@ -6,6 +6,7 @@ from django.contrib import admin
 
 admin.site.register(Profile)
 admin.site.register(Feedback)
+admin.site.register(Houses)
 
 admin.site.register(Outbox)
 admin.site.register(Inbox)

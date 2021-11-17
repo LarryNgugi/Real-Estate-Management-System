@@ -37,8 +37,10 @@ staff_patterns = [
     path('house', views.houses, name='house'),
     path('create/house', views.saveHouses, name='house_form'),
     path('update/house/<id>', views.updateHouse, name='update_house'),
-    path('invoice', views.invoice, name='invoice')
+    path('invoice', views.invoice, name='invoice'),
+
 ]
+
 
 urlpatterns = [
     path('mpesa_api/', include(mpesa_api_urls)),
