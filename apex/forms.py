@@ -4,6 +4,7 @@ from bootstrap_datepicker_plus import DateTimePickerInput
 
 from .models import Profile, Houses
 from django.forms.widgets import NumberInput
+
 RELATIONSHIP_CHOICES = [
     ('Spouse', 'Spouse'),
     ('Father', 'Father'),
@@ -151,3 +152,8 @@ class HouseForm(forms.ModelForm):
             'amount': forms.TextInput(attrs={'placeholder': 'Tenant House Amount'}),
             'status': forms.Select(choices=STATUS_CHOICES),
         }
+
+
+class CreateInvoiceForm(forms.Form):
+    amount = forms.IntegerField(label='House Amount',
+                                widget=forms.TextInput(attrs={'placeholder': 'House Amount'}))

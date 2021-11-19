@@ -3,6 +3,8 @@ from django.db import models
 from django.conf import settings
 from mpesa_api.models import MpesaPayment
 
+import datetime
+
 
 # Create your models here.
 class Houses(models.Model):
@@ -37,9 +39,6 @@ class Profile(models.Model):
     class Meta:
         verbose_name_plural = 'Profile'
 
-    def __str__(self):
-        return self.house_number
-
 
 class Account(models.Model):
     houseNumber = models.CharField(max_length=50, blank=False, null=True)
@@ -68,10 +67,35 @@ class Feedback(models.Model):
 
 
 class Invoice(models.Model):
-    house_number = models.CharField(max_length=50, blank=False, null=True)
+    house_number = models.ForeignKey(Houses, on_delete=models.CASCADE, max_length=50, blank=False, null=True)
     phone_number = models.CharField(max_length=15, blank=True, null=True)
     amount = models.IntegerField(default=0, blank=False, null=False)
     name = models.CharField(max_length=100, blank=False, null=True)
+    invoice_number = models.CharField(blank=True, max_length=8)
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            today = datetime.date.today()
+            date_str = datetime.datetime.strftime(today, '%y%m%d')
+            doc_str = 'INV-'
+            last_invoice = Invoice.objects.filter(invoice_number__startswith=doc_str).order_by('invoice_number').last()
+            if last_invoice:
+                last_invoice_num = last_invoice.invoice_number[-2:]
+                new_invoice_num = int(last_invoice_num) + 1
+                new_invoice_num = "%03d" % new_invoice_num
+            else:
+                new_invoice_num = '001'
+            self.invoice_number = doc_str + date_str + new_invoice_num
+        super(Invoice, self).save(*args, **kwargs)
+
+    class Meta:
+        ordering = ['invoice_number', ]
+
+    def __str__(self):
+        return self.invoice_number
+
+    def get_absolute_url(self):
+        return reverse("accounting:invoices:detail", kwargs={"pk": self.pk})
 
 
 class Outbox(models.Model):

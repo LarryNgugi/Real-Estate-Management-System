@@ -9,15 +9,20 @@
     <div class="col-lg-12 col-md-12 col-sm-12">
 
             <div class="row">
-                <h3 class="mt-2 font-weight-bold"> Invoice's </h3>
-{#         <h6 class="mt-2 text-center">Date Entered</h6>#}
+                <h3 class="mt-2 font-weight-bold">
+                     <img src="https://key0.cc/images/small/4718_c64bc920cfa6e3dcc998377cbe9c24c4.png" class="mr-3" title="Go to Previous Page" width="30px" height="30px" onclick="history.back()">
+                Invoice's </h3>
 
             </div>
 
 
-             <a class="btn btn-success my-3 mx-2" href="#">
+             <a class="btn btn-success my-3 mx-2" href="{% url 'create_invoice' %}">
             + Add New Invoice
             </a>
+
+            <h5>Date:{{ value|time }}</h5>
+            <h5 class="font-weight-bold">House Number: {{ house.house_number }}</h5>
+
 
 
         <div class="row justify-content-right">
@@ -30,7 +35,6 @@
                         <tr>
 
                         <th>#</th>
-                        <th>H/No</th>
                         <th>Client Name</th>
                         <th>Phone Number</th>
                         <th>Previous Balance</th>
@@ -46,6 +50,11 @@
                     {% for invoice in invoice_list %}
 
                     <tr>
+
+                    <td>{{ invoice.invoice_number }}</td>
+                    <td>{{ invoice.name }}</td>
+                    <td>{{ invoice.amount }}</td>
+                    <td>{{ invoice.amount }}</td>
 
                     </tr>
 

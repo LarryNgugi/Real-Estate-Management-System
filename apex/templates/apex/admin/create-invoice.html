@@ -1,0 +1,64 @@
+{% extends 'apex/admin/layouts/admin-base.html' %}
+
+{% load static %}
+
+{% load widget_tweaks %}
+
+{% block 'content' %}
+
+<div class="container-fluid">
+
+    <h3 class="m-4 font-weight-bold">
+             <img src="https://key0.cc/images/small/4718_c64bc920cfa6e3dcc998377cbe9c24c4.png" class="mr-3" title="Go to Previous Page" width="30px" height="30px" onclick="history.back()">
+
+        Create New Invoice</h3>
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8 col-md-8 col-sm-12">
+
+            <div class="card-body">
+
+                <form action="{% url 'create_invoice' %}" method="POST">
+
+                    {% csrf_token %}
+
+
+                    {% for hidden in form.hidden_fields %}
+
+                    {{ hidden }}
+                    {% endfor %}
+
+                    {% for field in form.visible_fields %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field|add_class:'form-control' }}
+                        {% for error in field.errors %}
+                        <span class="help-block">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+
+                    <button type="submit"  class="btn-main btn-lg">Submit</button>
+
+                </form>
+
+
+
+            </div>
+
+        </div>
+
+
+
+</div>
+
+{% endblock %}
+
+
+
+{%block 'scripts' %}
+
+<!-- remained empty -->
+
+{% endblock 'scripts' %}

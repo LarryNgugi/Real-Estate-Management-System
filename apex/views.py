@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from .forms import ProfileForm, ProfilesForm, HousesForm, HouseForm
+from .forms import ProfileForm, ProfilesForm, HousesForm, HouseForm, CreateInvoiceForm
 from .models import Feedback, Profile, Houses, Invoice
 from mpesa_api.models import MpesaPayment
 import datetime
@@ -341,7 +341,32 @@ def updateHouse(request, id):
 def invoice(request):
     context = {
         'invoice_list': Invoice.objects.all()
-        }
+    }
 
     return render(request, 'apex/admin/invoice.html', context)
 
+
+def createInvoice(request):
+    if request.method == 'POST':
+
+        form = CreateInvoiceForm(request.POST)
+
+        if form.is_valid():
+            amount = form.cleaned_data['amount']
+
+            Invoice.objects.create(amount=amount)
+
+            return HttpResponseRedirect('/staff/invoice')
+
+    else:
+        form = CreateInvoiceForm()
+
+    return render(request, 'apex/admin/create-invoice.html', {'form': form})
+
+
+def date(request):
+    context = {}
+
+    current_datetime = datetime.datetime.now()
+    html = "<html><body><b>Current Date and Time Value:</b> %s</body></html>" % current_datetime
+    return render(request, 'apex/admin/invoice.html', html)
