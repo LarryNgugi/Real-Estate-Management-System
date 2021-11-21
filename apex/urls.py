@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.urls import path
 from django.urls.conf import include
-from apex import views
+from . import views
 from mpesa_api import urls as mpesa_api_urls
 
 staff_patterns = [
@@ -39,8 +39,6 @@ staff_patterns = [
     path('update/house/<id>', views.updateHouse, name='update_house'),
     path('invoice', views.invoice, name='invoice'),
     path('create/invoice', views.createInvoice, name='create_invoice'),
-    path('date', views.date, name='today'),
-
 ]
 
 urlpatterns = [

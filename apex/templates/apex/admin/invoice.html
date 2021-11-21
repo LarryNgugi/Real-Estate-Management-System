@@ -20,8 +20,8 @@
             + Add New Invoice
             </a>
 
-            <h5>Date:{{ value|time }}</h5>
-            <h5 class="font-weight-bold">House Number: {{ house.house_number }}</h5>
+            <h5>Date: <span class="font-weight-bold">{% now 'Y/m/d' %}</span></h5>
+            <h5>House Number: {{ house.house_number }}</h5>
 
 
 
@@ -57,6 +57,14 @@
                     <td>{{ invoice.amount }}</td>
 
                     </tr>
+
+                        {% empty %}
+
+                        <tr>
+
+                        <td colspan="10" class="text-center">No Invoice's Yet</td>
+
+                        </tr>
 
                     {% endfor %}
 

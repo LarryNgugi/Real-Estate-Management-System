@@ -44,20 +44,20 @@ class ProfileForm(forms.Form):
                            max_length=100)
     id_number = forms.IntegerField(label='ID Number',
                                    widget=forms.TextInput(attrs={'placeholder': 'Tenant National ID Number'}))
-    phone_number = forms.IntegerField(label='Phone Number',
-                                      widget=forms.TextInput(attrs={'placeholder': 'Tenant Official Phone Number'}))
+    phone_number = forms.CharField(label='Phone Number',
+                                   widget=forms.TextInput(attrs={'placeholder': 'Tenant Official Phone Number'}))
     house_number = forms.CharField(label='House Number', max_length=50,
                                    widget=forms.TextInput(attrs={'placeholder': 'Tenant House Number'}))
     account_number = forms.CharField(label='Account Number', max_length=50,
                                      widget=forms.TextInput(attrs={'placeholder': 'Tenant Account Number'}))
-    amount = forms.IntegerField(label='House Amount',
-                                widget=forms.TextInput(attrs={'placeholder': 'Tenant House Amount'}))
+    amount = forms.CharField(label='House Amount',
+                             widget=forms.TextInput(attrs={'placeholder': 'Tenant House Amount'}))
     date = forms.DateTimeField(label="Date Entered", required=True, widget=NumberInput(attrs={'type': 'date'}))
     NextOfKinName = forms.CharField(label='Next Of Kin Full Name', max_length=100,
                                     widget=forms.TextInput(attrs={'placeholder': 'Enter Next Of Kin Full Name'}))
     NextOfKinId_number = forms.IntegerField(label='Next Of Kin ID Number', widget=forms.TextInput(
         attrs={'placeholder': 'Enter Next Of Kin National ID Number'}))
-    NextOfKinPhone_number = forms.IntegerField(label='Next Of Kin Phone Number', widget=forms.TextInput(
+    NextOfKinPhone_number = forms.CharField(label='Next Of Kin Phone Number', widget=forms.TextInput(
         attrs={'placeholder': 'Enter Next Of Kin Official Phone Number'}))
     relationship = forms.CharField(label='Whats Your Relationship?', widget=forms.Select(choices=RELATIONSHIP_CHOICES))
 

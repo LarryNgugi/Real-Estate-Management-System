@@ -296,8 +296,8 @@ def inbox(request):
 
 @login_required()
 def houses(request):
-    context = {}
-    context['houses_list'] = Houses.objects.all()
+
+    context = {'houses_list': Houses.objects.all()}
 
     return render(request, 'apex/admin/house.html', context)
 
@@ -347,6 +347,9 @@ def invoice(request):
 
 
 def createInvoice(request):
+
+    datetime.datetime.now()
+
     if request.method == 'POST':
 
         form = CreateInvoiceForm(request.POST)
@@ -364,9 +367,4 @@ def createInvoice(request):
     return render(request, 'apex/admin/create-invoice.html', {'form': form})
 
 
-def date(request):
-    context = {}
 
-    current_datetime = datetime.datetime.now()
-    html = "<html><body><b>Current Date and Time Value:</b> %s</body></html>" % current_datetime
-    return render(request, 'apex/admin/invoice.html', html)
