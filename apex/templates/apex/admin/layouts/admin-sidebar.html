@@ -16,6 +16,12 @@
                 <i class="fa fa-money mr-2 " aria-hidden="true"></i>Accounts</a>
         </li>
 
+           <li class="my-2 ">
+            <a href="{% url 'invoice' %}">
+                <i class="fa fa-money mr-2 " aria-hidden="true"></i>Invoices</a>
+        </li>
+
+
          <li class="my-2 ">
             <a href="{% url 'profile'  %}">
                  <i class="fa fa-user mr-2"></i>Client Profiles
@@ -33,6 +39,7 @@
             <a href="{% url 'payment' %}">
                 <i class="fa fa-money mr-2 " aria-hidden="true"></i>Payments</a>
         </li>
+
         
         <li class="my-2 ">
             <a href=" {% url 'outbox' %} ">
@@ -42,6 +49,13 @@
         <li class="my-2 ">
             <a href="{% url 'feedback' %}">
                 <i class="fa fa-comments mr-2 " aria-hidden="true"></i>Feedback</a>
+        </li>
+
+        <h5 class="ml-5 font text-muted text-capitalize">SETTINGS.</h5>
+
+        <li class="my-2 ">
+            <a href="#">
+                <i class="fa fa-comments mr-2 " aria-hidden="true"></i>Users</a>
         </li>
 
     </ul>

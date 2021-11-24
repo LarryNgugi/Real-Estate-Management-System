@@ -11,9 +11,10 @@
             <div class="row">
                 <h3 class="mt-2 font-weight-bold"> Payments ({{ payments_list|length }}) </h3>
 
+                <a class="btn btn-success my-3 mx-2 ml-auto" href="#">
+                     + Add New Payment
+                </a>
             </div>
-
-
 
         <div class="row justify-content-right">
 
@@ -47,6 +48,12 @@
                     <td>payment.phone_number</td>
                     <td>payment.amount</td>
                     <td>payment.created_at</td>
+
+                    {% empty %}
+
+                    <tr>
+                        <td colspan="10" class="text-center">No Payments made yet.</td>
+                    </tr>
 
 
 

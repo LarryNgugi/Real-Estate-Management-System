@@ -296,7 +296,6 @@ def inbox(request):
 
 @login_required()
 def houses(request):
-
     context = {'houses_list': Houses.objects.all()}
 
     return render(request, 'apex/admin/house.html', context)
@@ -347,7 +346,6 @@ def invoice(request):
 
 
 def createInvoice(request):
-
     datetime.datetime.now()
 
     if request.method == 'POST':
@@ -355,9 +353,11 @@ def createInvoice(request):
         form = CreateInvoiceForm(request.POST)
 
         if form.is_valid():
+            title = form.cleaned_data['title']
+            due_date = form.cleaned_data['due_date']
             amount = form.cleaned_data['amount']
 
-            Invoice.objects.create(amount=amount)
+            Invoice.objects.create(amount=amount, title=title, due_date=due_date)
 
             return HttpResponseRedirect('/staff/invoice')
 
@@ -365,6 +365,3 @@ def createInvoice(request):
         form = CreateInvoiceForm()
 
     return render(request, 'apex/admin/create-invoice.html', {'form': form})
-
-
-

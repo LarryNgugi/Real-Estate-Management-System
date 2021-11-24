@@ -7,7 +7,7 @@ from django.contrib import admin
 admin.site.register(Profile)
 admin.site.register(Feedback)
 admin.site.register(Houses)
-
+admin.site.register(Invoice)
 admin.site.register(Outbox)
 admin.site.register(Inbox)
 admin.site.register(DeliveryReport)

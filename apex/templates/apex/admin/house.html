@@ -11,11 +11,13 @@
             <div class="row">
                 <h3 class="mt-2 font-weight-bold"> House Details ({{ houses_list|length }}) </h3>
 
+
+                <a class="btn btn-success my-3 mx-2 ml-auto" href="{% url 'house_form' %}">
+                     + Add New House
+                </a>
+
             </div>
 
-             <a class="btn btn-success my-3 mx-2" href="{% url 'house_form' %}">
-            + Add New House Detail
-            </a>
 
 
 

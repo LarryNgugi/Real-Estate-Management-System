@@ -10,20 +10,16 @@
 
             <div class="row">
                 <h3 class="mt-2 font-weight-bold">
-                     <img src="https://key0.cc/images/small/4718_c64bc920cfa6e3dcc998377cbe9c24c4.png" class="mr-3" title="Go to Previous Page" width="30px" height="30px" onclick="history.back()">
-                Invoice's </h3>
+                Invoice's ({{ invoice_list|length }}) </h3>
+
+                <a class="btn btn-success my-3 mx-2 ml-auto" href="{% url 'create_invoice' %}">
+                     + Add New Invoice
+                </a>
 
             </div>
 
-
-             <a class="btn btn-success my-3 mx-2" href="{% url 'create_invoice' %}">
-            + Add New Invoice
-            </a>
-
-            <h5>Date: <span class="font-weight-bold">{% now 'Y/m/d' %}</span></h5>
-            <h5>House Number: {{ house.house_number }}</h5>
-
-
+{#            <h5>Date: <span class="font-weight-bold">{% now 'Y/m/d' %}</span></h5>#}
+{#            <h5>House Number: {{ house.house_number }}</h5>#}
 
         <div class="row justify-content-right">
 
@@ -35,10 +31,12 @@
                         <tr>
 
                         <th>#</th>
+                        <th>H/No</th>
+                        <th>Title</th>
                         <th>Client Name</th>
                         <th>Phone Number</th>
-                        <th>Previous Balance</th>
-                        <th>Invoice Amount</th>
+                        <th>Due Date</th>
+                        <th>Status</th>
                         <th>View</th>
 
 
@@ -52,9 +50,18 @@
                     <tr>
 
                     <td>{{ invoice.invoice_number }}</td>
-                    <td>{{ invoice.name }}</td>
-                    <td>{{ invoice.amount }}</td>
-                    <td>{{ invoice.amount }}</td>
+                    <td>{{ invoice.house.house_number }}</td>
+                    <td>{{ invoice.title }}</td>
+                    <td>{{ invoice.profile.name }}</td>
+                    <td>{{ invoice.phone_number }}</td>
+                    <td>{{ invoice.due_date }}</td>
+                    <td>{{ invoice.status }}</td>
+
+                    <td>
+                            <a href="#" title="View Tenant" class="btn btn-success btn-sm">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                            </a>
+                        </td>
 
                     </tr>
 

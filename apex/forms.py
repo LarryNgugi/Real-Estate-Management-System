@@ -1,6 +1,4 @@
 from django import forms
-from pyramid import request
-from bootstrap_datepicker_plus import DateTimePickerInput
 
 from .models import Profile, Houses
 from django.forms.widgets import NumberInput
@@ -155,5 +153,8 @@ class HouseForm(forms.ModelForm):
 
 
 class CreateInvoiceForm(forms.Form):
-    amount = forms.IntegerField(label='House Amount',
-                                widget=forms.TextInput(attrs={'placeholder': 'House Amount'}))
+    title = forms.CharField(label='Title', required=True, widget=forms.TextInput(attrs={'placeholder': 'Enter Title'}))
+
+    amount = forms.IntegerField(label='Amount', required=True,
+                                widget=forms.TextInput(attrs={'placeholder': 'Enter Invoice Amount'}))
+    due_date = forms.DateTimeField(label='Due Date', required=True, widget=NumberInput(attrs={'type': 'date'}))

@@ -39,6 +39,9 @@ class Profile(models.Model):
     class Meta:
         verbose_name_plural = 'Profile'
 
+    def __str__(self):
+        return self.name
+
 
 class Account(models.Model):
     houseNumber = models.CharField(max_length=50, blank=False, null=True)
@@ -67,10 +70,13 @@ class Feedback(models.Model):
 
 
 class Invoice(models.Model):
-    house_number = models.ForeignKey(Houses, on_delete=models.CASCADE, max_length=50, blank=False, null=True)
+    title = models.CharField(max_length=30, blank=False, null=True)
+    status = models.CharField(max_length=30, blank=False, null=True)
+    house = models.ForeignKey(Houses, on_delete=models.CASCADE, max_length=50, blank=False, null=True)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, max_length=100, blank=False, null=True)
+    due_date = models.DateField(blank=False, null=True)
     phone_number = models.CharField(max_length=15, blank=True, null=True)
     amount = models.IntegerField(default=0, blank=False, null=False)
-    name = models.CharField(max_length=100, blank=False, null=True)
     invoice_number = models.CharField(blank=True, max_length=8)
 
     def save(self, *args, **kwargs):
