@@ -16,28 +16,37 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.urls import path
 from django.urls.conf import include
-from apex import views
+from . import views
 from mpesa_api import urls as mpesa_api_urls
-from .views import ProfileUpdate
 
 staff_patterns = [
     path('feedback', views.showFeedback, name='feedback'),
     path('delete/feedback <id>', views.deleteFeedback, name='delete_feedback'),
     path('profile', views.profile, name='profile'),
     path('create/profile', views.saveProfile, name='save_form'),
-    path('create/profile', views.saveNextOfKin, name='nextOfKin_form'),
-    # path('delete/profile <id>', views.deleteProfile, name='delete_profile')
-    path('update/profile/<pk>', ProfileUpdate.as_view(), name='update_profile')
-
-
+    # path('delete/profile <id>', views.deleteProfile, name='delete_profile'),
+    path('update/profile/<id>', views.updateProfile, name='update_profile'),
+    path('nextofkin/profile', views.nextOfKin, name='nextOfKin'),
+    path('payments', views.payment, name='payment'),
+    path('inbox', views.inbox, name='inbox'),
+    path('outbox', views.outbox, name='outbox'),
+    path('create_sms/', views.create_sms, name="create_sms"),
+    path('incoming_message/', views.incoming_message, name='incoming_message'),
+    path('incoming_delivery_reports/', views.incoming_delivery_reports, name='incoming_delivery_reports'),
+    path('delivery_reports', views.delivery_reports, name='delivery_reports'),
+    path('house', views.houses, name='house'),
+    path('create/house', views.saveHouses, name='house_form'),
+    path('update/house/<id>', views.updateHouse, name='update_house'),
+    path('invoice', views.invoice, name='invoice'),
+    path('create/invoice', views.createInvoice, name='create_invoice'),
 ]
 
 urlpatterns = [
     path('mpesa_api/', include(mpesa_api_urls)),
-    # everything that starts with app2 urls， to app2 (app the name ) the urls. py to deal with
     path('staff/', include(staff_patterns)),
     path('', views.home, name='home'),
     path('contact/', views.contact, name="contact"),
     path('save_feedback', views.saveFeedback, name="save_feedback"),
+    path('', views.logout, name="logouts"),
 
 ]

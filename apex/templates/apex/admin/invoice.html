@@ -1,0 +1,90 @@
+{% extends 'apex/admin/layouts/admin-base.html' %}
+
+{% load static %}
+
+{% block 'content' %}
+
+<div class="container-fluid">
+
+    <div class="col-lg-12 col-md-12 col-sm-12">
+
+            <div class="row">
+                <h3 class="mt-2 font-weight-bold">
+                     <img src="https://key0.cc/images/small/4718_c64bc920cfa6e3dcc998377cbe9c24c4.png" class="mr-3" title="Go to Previous Page" width="30px" height="30px" onclick="history.back()">
+                Invoice's </h3>
+
+            </div>
+
+
+             <a class="btn btn-success my-3 mx-2" href="{% url 'create_invoice' %}">
+            + Add New Invoice
+            </a>
+
+            <h5>Date: <span class="font-weight-bold">{% now 'Y/m/d' %}</span></h5>
+            <h5>House Number: {{ house.house_number }}</h5>
+
+
+
+        <div class="row justify-content-right">
+
+            <div class="card-body">
+
+                <table class="table table-striped table-bordered">
+
+                    <thead>
+                        <tr>
+
+                        <th>#</th>
+                        <th>Client Name</th>
+                        <th>Phone Number</th>
+                        <th>Previous Balance</th>
+                        <th>Invoice Amount</th>
+                        <th>View</th>
+
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                    {% for invoice in invoice_list %}
+
+                    <tr>
+
+                    <td>{{ invoice.invoice_number }}</td>
+                    <td>{{ invoice.name }}</td>
+                    <td>{{ invoice.amount }}</td>
+                    <td>{{ invoice.amount }}</td>
+
+                    </tr>
+
+                        {% empty %}
+
+                        <tr>
+
+                        <td colspan="10" class="text-center">No Invoice's Yet</td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+{% block 'scripts' %}
+
+<!-- remained empty -->
+
+{% endblock 'scripts' %}

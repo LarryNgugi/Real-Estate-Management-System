@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light mt-2">
     <div class="container-fluid">
 
         <button type="button" id="sidebarCollapse" class="btn btn-black ">
@@ -8,7 +8,17 @@
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+
+        <div class="float-center ml-5">
+             {% if user.is_authenticated %}
+           Welcome  <span class="text-success font-weight-bold text-uppercase">{{ user.username }}</span> !
+         {% else %}
+            <p>You are not logged In</p>
+        {% endif %}
+        </div>
+
       <div class="collapse navbar-collapse" id="navbarNav">
+
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
             <a class="nav-link text-dark " href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
@@ -21,10 +31,11 @@
           </li>
   
           <li class="nav-item">
-            <a class="nav-link text-dark btn btn-light text-dark py-2 m-1 ml-3  mr-auto " href="#">Login</a>
+            <a class="nav-link text-dark text-dark mr-auto "  href="{% url 'logouts' %}">Logout</a>
           </li>
   
         </ul>
       </div>
     </div>
 </nav>
+

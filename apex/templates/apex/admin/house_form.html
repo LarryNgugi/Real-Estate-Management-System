@@ -8,22 +8,18 @@
 
 <div class="container-fluid">
 
-    <h3 class="m-4 font-weight-bold">
-     <img src="https://key0.cc/images/small/4718_c64bc920cfa6e3dcc998377cbe9c24c4.png" class="mr-3" title="Go to Previous Page" width="30px" height="30px" onclick="history.back()">
-
-        Create New Tenant Profile</h3>
+    <h3 class="m-4 font-weight-bold">Create New Tenant Profile</h3>
 
     <div class="row justify-content-center">
 
-        <div class="col-lg-10 col-md-10 col-sm-12">
-
+        <div class="col-lg-8 col-md-8 col-sm-12">
             <div class="card-header">
                 <h5 class="text-center">Tenant Details</h5>
             </div>
 
             <div class="card-body">
 
-                <form action="{% url 'save_form' %}" method="POST">
+                <form action="{% url 'house_form' %}" method="POST">
 
                     {% csrf_token %}
 
@@ -43,18 +39,11 @@
                     </div>
                     {% endfor %}
 
-{#                            checkbox#}
-
-
-                        <div class="form-check m-3">
-                          <input class="form-check-input" type="checkbox" value="" title="Check to send onboard message" id="defaultCheck1">
-                          <label class="form-check-label" for="defaultCheck1">
-                            Check If New Tenant
-                          </label>
-                        </div>
-                    <button type="submit"  class=" btn-main btn-lg">Submit</button>
+                    <button type="submit"  class="btn-main btn-lg">Submit</button>
 
                 </form>
+
+
 
             </div>
 

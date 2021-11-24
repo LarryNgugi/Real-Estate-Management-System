@@ -8,33 +8,40 @@
     <ul class="list-unstyled components">
 
         <li class="my-2 " >
-            <a href="#" ><i class="fa fa-home mr-2 " aria-hidden="true"></i>Home </a>
+            <a href="#" ><i class="fa fa-home mr-2 " aria-hidden="true"></i>Dashboard</a>
         </li>
 
         <li class="my-2 ">
             <a href="#">
                 <i class="fa fa-money mr-2 " aria-hidden="true"></i>Accounts</a>
         </li>
-        
-        <li class="my-2 ">
-            <a href=" {% url 'profile'  %} ">
-                <i class="fa fa-user-o mr-2 " aria-hidden="true"></i>Client Profiles</a>
+
+         <li class="my-2 ">
+            <a href="{% url 'profile'  %}">
+                 <i class="fa fa-user mr-2"></i>Client Profiles
+            </a>
+        </li>
+
+         <li class="my-2 ">
+            <a href="{% url 'house' %}">
+                <i class="fa fa-home mr-2" aria-hidden="true"></i>House Details
+            </a>
         </li>
 
 
         <li class="my-2 ">
-            <a href="#">
+            <a href="{% url 'payment' %}">
                 <i class="fa fa-money mr-2 " aria-hidden="true"></i>Payments</a>
         </li>
         
         <li class="my-2 ">
-            <a href="#">
-                <i class="fa fa-files-o mr-2 " aria-hidden="true"></i>Documents</a>
+            <a href=" {% url 'outbox' %} ">
+                <i class="fa fa-files-o mr-2 " aria-hidden="true"></i>Sms Reports</a>
         </li>
 
         <li class="my-2 ">
             <a href="{% url 'feedback' %}">
-                <i class="fa fa-comments-o mr-2 " aria-hidden="true"></i>Feedback</a>
+                <i class="fa fa-comments mr-2 " aria-hidden="true"></i>Feedback</a>
         </li>
 
     </ul>

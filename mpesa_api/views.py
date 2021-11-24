@@ -50,9 +50,9 @@ def register_urls(request):
     options = {"ShortCode": LipanaMpesaPpassword.Test_c2b_shortcode,
                "ResponseType": "Completed",
                # replace  with ngrok https
-               "ConfirmationURL": "https://615f-41-80-98-245.ngrok.io/api/v1/c2b/confirmation",
+               "ConfirmationURL": "https://9e97-41-80-97-147.ngrok.io/api/v1/c2b/confirmation",
                # replace  with ngrok https
-               "ValidationURL": "https://615f-41-80-98-245.ngrok.io/api/v1/c2b/validation"
+               "ValidationURL": "https://9e97-41-80-97-147.ngrok.io/api/v1/c2b/confirmation"
                }
     response = requests.post(api_url, json=options, headers=headers)
     return HttpResponse(response.text)

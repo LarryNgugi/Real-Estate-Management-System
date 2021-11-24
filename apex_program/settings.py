@@ -16,7 +16,6 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -26,8 +25,7 @@ SECRET_KEY = 'django-insecure-z8&dnjbr(*n+o&cplcks)f+1l3)kqzdpfdap73_)2_z4()-p%r
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '615f-41-80-98-245.ngrok.io', 'localhost']
-
+ALLOWED_HOSTS = ['127.0.0.1', '4e37-105-163-1-222.ngrok.io', 'localhost']
 
 # Application definition
 
@@ -41,6 +39,8 @@ INSTALLED_APPS = [
     'apex.apps.ApexConfig',
     'mpesa_api.apps.MpesaApiConfig',
     'widget_tweaks',
+    'django.contrib.humanize',
+    'bootstrap_datepicker_plus',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_auto_logout.middleware.auto_logout',
 ]
 
 ROOT_URLCONF = 'apex_program.urls'
@@ -73,7 +74,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'apex_program.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
@@ -81,9 +81,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -103,7 +103,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -117,20 +116,35 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR,'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIR = [
-    os.path.join(BASE_DIR,'blog/static/')
+    os.path.join(BASE_DIR, 'apex/static/')
 ]
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
+AT_ENDPOINT_URL = "https://api.sandbox.africastalking.com/version1/messaging"
+# Live : https://api.africastalking.com/version1/messaging
+# Sandbox: https://api.sandbox.africastalking.com/version1/messaging
+
+AT_API_KEY = 'c2cc8290d7985d228c31c7384f6f763ce6f0cff58abe7ad1f79e27ba04551aba'
+
+AT_USER_NAME = 'sandbox'
+
+AT_FROM_VALUE = '2390'
+
+LOGIN_URL = 'home'
+LOGIN_REDIRECT_URL = '/staff/profile'
+
+AUTO_LOGOUT = {'IDLE_TIME': 1000,
+               'MESSAGE': 'The session has expired. Please login again to continue.'
+               }
