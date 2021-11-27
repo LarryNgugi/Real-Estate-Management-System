@@ -343,6 +343,7 @@ def updateHouse(request, id):
 
 
 def invoice(request):
+    our_invoice = Invoice.objects.get(pk=1)
     clicked = request.GET.get('clicked')
     invoice_list = Invoice.objects.all()
     search_term = ''
@@ -353,7 +354,7 @@ def invoice(request):
             Q(invoice_number__icontains=search_term) | Q(house_number__icontains=search_term))
 
     context = {
-        "invoice_list": invoice_list, 'active': clicked, 'search_term': search_term
+        "invoice_list": invoice_list, 'active': clicked, 'search_term': search_term, 'our_invoice': our_invoice
 
     }
 
@@ -362,10 +363,10 @@ def invoice(request):
 
 def createInvoice(request):
     datetime.datetime.now()
-
+    our_invoice = Invoice.objects.get(profile=request.profile)
     if request.method == 'POST':
 
-        form = CreateInvoiceForm(request.POST)
+        form = CreateInvoiceForm(request.POST, instance=our_invoice)
 
         if form.is_valid():
             title = form.cleaned_data['title']
@@ -378,7 +379,7 @@ def createInvoice(request):
             return HttpResponseRedirect('/staff/invoice')
 
     else:
-        form = CreateInvoiceForm()
+        form = CreateInvoiceForm(instance=our_invoice)
 
     return render(request, 'apex/admin/create-invoice.html', {'form': form})
 
