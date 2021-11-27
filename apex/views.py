@@ -18,6 +18,7 @@ from django.core.paginator import Paginator
 from .forms import CreateSms
 from .models import Outbox, Inbox, DeliveryReport
 from django.contrib.auth.forms import AuthenticationForm
+from django.db.models import Q
 
 
 # Create your views here.
@@ -190,6 +191,7 @@ def outbox(request):
 
 @login_required
 def create_sms(request):
+    our_phoneNumbers = Profile.objects.all()
     form = CreateSms()
     if request.method == "POST":
         form = CreateSms(request.POST)
@@ -198,7 +200,7 @@ def create_sms(request):
             message = form.cleaned_data.get("message")
             Outbox.send(phone_number, message)
             return redirect('outbox')
-    return render(request, "apex/admin/createSms.html", {"form": form})
+    return render(request, "apex/admin/createSms.html", {"form": form, 'profiles': our_phoneNumbers})
 
 
 @csrf_exempt
@@ -221,7 +223,7 @@ def incoming_message(request):
     date = datetime.datetime.strptime(date, '%Y-%m-%d %H:%M:%S')
     aware_datetime = make_aware(date)
     Inbox_object = Inbox(
-        date=aware_datetime,
+        date=datetime.datetime.now(),
         text=text,
         phone=phoneNo,
         to=to,
@@ -263,7 +265,9 @@ def delivery_reports(request):
     search_term = ''
     if 'search' in request.GET:
         search_term = request.GET.get('search')
-        all_delivery_reports = all_delivery_reports.filter(identifier__icontains=search_term)
+        all_delivery_reports = all_delivery_reports.filter(
+            Q(identifier__icontains=search_term) | Q(phoneNumber__icontains=search_term)
+        )
     paginator = Paginator(all_delivery_reports, 100)
     page = request.GET.get('page')
     all_delivery_reports = paginator.get_page(page)
@@ -278,7 +282,8 @@ def inbox(request):
     search_term = ''
     if 'search' in request.GET:
         search_term = request.GET.get('search')
-        all_inbox_items = all_inbox_items.filter(text__icontains=search_term)
+        all_inbox_items = all_inbox_items.filter(
+            Q(text__icontains=search_term) | Q(phone__icontains=search_term) | Q(date__icontains=search_term))
     paginator = Paginator(all_inbox_items, 5)
     page = request.GET.get('page')
     all_inbox_items = paginator.get_page(page)
@@ -338,8 +343,18 @@ def updateHouse(request, id):
 
 
 def invoice(request):
+    clicked = request.GET.get('clicked')
+    invoice_list = Invoice.objects.all()
+    search_term = ''
+
+    if 'search' in request.GET:
+        search_term = request.GET.get('search')
+        invoice_list = invoice_list.filter(
+            Q(invoice_number__icontains=search_term) | Q(house_number__icontains=search_term))
+
     context = {
-        'invoice_list': Invoice.objects.all()
+        "invoice_list": invoice_list, 'active': clicked, 'search_term': search_term
+
     }
 
     return render(request, 'apex/admin/invoice.html', context)
@@ -356,8 +371,9 @@ def createInvoice(request):
             title = form.cleaned_data['title']
             due_date = form.cleaned_data['due_date']
             amount = form.cleaned_data['amount']
+            house_number = form.cleaned_data['house_number']
 
-            Invoice.objects.create(amount=amount, title=title, due_date=due_date)
+            Invoice.objects.create(amount=amount, title=title, due_date=due_date, house_number=house_number)
 
             return HttpResponseRedirect('/staff/invoice')
 
@@ -365,3 +381,11 @@ def createInvoice(request):
         form = CreateInvoiceForm()
 
     return render(request, 'apex/admin/create-invoice.html', {'form': form})
+
+
+def updateInvoice(request):
+    our_invoice = Invoice.objects.all()
+    context = {
+        'invoice': our_invoice
+    }
+    return render(request, 'apex/admin/updateInvoice.html', context)

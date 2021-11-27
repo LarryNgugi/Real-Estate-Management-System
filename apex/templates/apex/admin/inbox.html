@@ -2,6 +2,8 @@
 
 {% load static %}
 
+{% load tz %}
+
 {% load humanize %}
 
 {% block 'content' %}
@@ -11,7 +13,9 @@
     <div class="col-lg-12 col-md-12 col-sm-12">
 
             <div class="row">
-                <h3 class="mt-2 font-weight-bold"> Inbox ({{ all_inbox_items|length }}) </h3>
+                <h3 class="mt-2 font-weight-bold">
+                    <img src="https://key0.cc/images/small/4718_c64bc920cfa6e3dcc998377cbe9c24c4.png" class="mr-3" title="Go to Previous Page" width="30px" height="30px" onclick="history.back()">
+                    Inbox ({{ all_inbox_items|length }}) </h3>
 
 
                 <form class="form-inline my-2 my-lg-1 mt-3 ml-auto">
@@ -44,7 +48,7 @@
                     <tbody>
                     {% for inbox in all_inbox_items %}
                     <tr>
-                      <td>{{ inbox.date|naturaltime|naturalday }}</td>
+                      <td>{{ inbox.date }}</td>
                       <td>{{ inbox.text }}</td>
                       <td>{{ inbox.phone }}</td>
                     </tr>

@@ -1,9 +1,7 @@
 from django.urls import path
 from . import views
 from django.conf.urls import include, url
-from mpesa_api import views
-
-
+from . import views
 
 urlpatterns = [
     path('pay', views.pay, name="pay"),
@@ -15,7 +13,3 @@ urlpatterns = [
     path('c2b/validation', views.validation, name="validation"),
     path('c2b/callback', views.call_back, name="call_back"),
 ]
-
-
-
-

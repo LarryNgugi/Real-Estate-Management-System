@@ -1,8 +1,6 @@
 import requests
 from django.db import models
 from django.conf import settings
-from mpesa_api.models import MpesaPayment
-
 import datetime
 
 
@@ -69,39 +67,31 @@ class Feedback(models.Model):
         verbose_name_plural = 'Feedback'
 
 
+def increment_invoice_number():
+    last_invoice = Invoice.objects.all().order_by('id').last()
+    if not last_invoice:
+        return 'PLB0001'
+    invoice_no = last_invoice.invoice_no
+    invoice_int = int(invoice_no.split('PLB')[-1])
+    width = 4
+    new_invoice_int = invoice_int + 1
+    formatted = (width - len(str(new_invoice_int))) * "0" + str(new_invoice_int)
+    new_invoice_no = 'PLB' + str(formatted)
+    return new_invoice_no
+
+
 class Invoice(models.Model):
     title = models.CharField(max_length=30, blank=False, null=True)
     status = models.CharField(max_length=30, blank=False, null=True)
-    house = models.ForeignKey(Houses, on_delete=models.CASCADE, max_length=50, blank=False, null=True)
+    house_number = models.CharField(max_length=50, blank=False, null=True)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, max_length=100, blank=False, null=True)
     due_date = models.DateField(blank=False, null=True)
     phone_number = models.CharField(max_length=15, blank=True, null=True)
     amount = models.IntegerField(default=0, blank=False, null=False)
-    invoice_number = models.CharField(blank=True, max_length=8)
-
-    def save(self, *args, **kwargs):
-        if not self.id:
-            today = datetime.date.today()
-            date_str = datetime.datetime.strftime(today, '%y%m%d')
-            doc_str = 'INV-'
-            last_invoice = Invoice.objects.filter(invoice_number__startswith=doc_str).order_by('invoice_number').last()
-            if last_invoice:
-                last_invoice_num = last_invoice.invoice_number[-2:]
-                new_invoice_num = int(last_invoice_num) + 1
-                new_invoice_num = "%03d" % new_invoice_num
-            else:
-                new_invoice_num = '001'
-            self.invoice_number = doc_str + date_str + new_invoice_num
-        super(Invoice, self).save(*args, **kwargs)
+    invoice_no = models.CharField(max_length=500, default=increment_invoice_number, null=True, blank=True)
 
     class Meta:
-        ordering = ['invoice_number', ]
-
-    def __str__(self):
-        return self.invoice_number
-
-    def get_absolute_url(self):
-        return reverse("accounting:invoices:detail", kwargs={"pk": self.pk})
+        ordering = ['invoice_no', ]
 
 
 class Outbox(models.Model):

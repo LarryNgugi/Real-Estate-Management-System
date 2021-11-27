@@ -12,7 +12,9 @@
 
             <div class="row">
 
-                <h3 class="mt-2 font-weight-bold"> Delivery Reports ({{ all_delivery_reports|length }})</h3>
+                <h3 class="mt-2 font-weight-bold">
+                  <img src="https://key0.cc/images/small/4718_c64bc920cfa6e3dcc998377cbe9c24c4.png" class="mr-3" title="Go to Previous Page" width="30px" height="30px" onclick="history.back()">
+                  Delivery Reports ({{ all_delivery_reports|length }})</h3>
 
             <form class="form-inline my-2 my-lg-1 ml-auto">
                 {% csrf_token %}
@@ -53,7 +55,7 @@
                     <tr>
 
                       <td>{{ d_report.identifier }} </td>
-                      <td>{{ d_report.date|naturaltime|naturalday }}</td>
+                      <td>{{ d_report.date }}</td>
                       <td>{{ d_report.phoneNumber }}</td>
                       <td>{{ d_report.status}}</td>
 

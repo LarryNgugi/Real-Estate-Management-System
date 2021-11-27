@@ -1,5 +1,6 @@
-from django import forms
+import datetime
 
+from django import forms
 from .models import Profile, Houses
 from django.forms.widgets import NumberInput
 
@@ -50,7 +51,8 @@ class ProfileForm(forms.Form):
                                      widget=forms.TextInput(attrs={'placeholder': 'Tenant Account Number'}))
     amount = forms.CharField(label='House Amount',
                              widget=forms.TextInput(attrs={'placeholder': 'Tenant House Amount'}))
-    date = forms.DateTimeField(label="Date Entered", required=True, widget=NumberInput(attrs={'type': 'date'}))
+    date = forms.DateField(label="Date Entered", required=True,
+                           widget=NumberInput(attrs={'type': 'date'}))
     NextOfKinName = forms.CharField(label='Next Of Kin Full Name', max_length=100,
                                     widget=forms.TextInput(attrs={'placeholder': 'Enter Next Of Kin Full Name'}))
     NextOfKinId_number = forms.IntegerField(label='Next Of Kin ID Number', widget=forms.TextInput(
@@ -58,6 +60,12 @@ class ProfileForm(forms.Form):
     NextOfKinPhone_number = forms.CharField(label='Next Of Kin Phone Number', widget=forms.TextInput(
         attrs={'placeholder': 'Enter Next Of Kin Official Phone Number'}))
     relationship = forms.CharField(label='Whats Your Relationship?', widget=forms.Select(choices=RELATIONSHIP_CHOICES))
+
+    def clean_date(self):
+        date = self.cleaned_data['date']
+        if date > datetime.date.today():
+            raise forms.ValidationError("The date must be in the past!")
+        return date
 
 
 class ProfilesForm(forms.ModelForm):
@@ -95,12 +103,11 @@ class ProfilesForm(forms.ModelForm):
 
 
 class CreateSms(forms.Form):
-    phone_number = forms.CharField(
-        label='Phone Number',
-        max_length=100,
-        min_length=3,
-        widget=forms.TextInput(
-            attrs={'class': 'form-control', 'placeholder': 'start with country code e.g +254xxx '}))
+    phone_number = forms.ModelChoiceField(queryset=Profile.objects.all(),
+                                          label='Phone Number',
+                                          widget=forms.TextInput(
+                                              attrs={'class': 'form-control',
+                                                     'placeholder': 'start with country code e.g +254xxx '}))
     message = forms.CharField(
         label='Message',
         max_length=255,
@@ -154,7 +161,15 @@ class HouseForm(forms.ModelForm):
 
 class CreateInvoiceForm(forms.Form):
     title = forms.CharField(label='Title', required=True, widget=forms.TextInput(attrs={'placeholder': 'Enter Title'}))
-
+    house_number = forms.CharField(label='House Number', max_length=50,
+                                   widget=forms.TextInput(attrs={'placeholder': 'Enter House Number'}))
     amount = forms.IntegerField(label='Amount', required=True,
                                 widget=forms.TextInput(attrs={'placeholder': 'Enter Invoice Amount'}))
-    due_date = forms.DateTimeField(label='Due Date', required=True, widget=NumberInput(attrs={'type': 'date'}))
+    due_date = forms.DateField(label='Due Date', required=True, widget=NumberInput(attrs={'type': 'date'}))
+
+    def clean_due_date(self):
+        data = self.cleaned_data['due_date']
+
+        if data <= datetime.date.today():
+            raise forms.ValidationError('Kindly select a Future date!')
+        return data

@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-z8&dnjbr(*n+o&cplcks)f+1l3)kqzdpfdap73_)2_z4()-p%r
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '4e37-105-163-1-222.ngrok.io', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'fa29-41-80-96-163.ngrok.io', 'localhost']
 
 # Application definition
 
@@ -145,6 +145,6 @@ AT_FROM_VALUE = '2390'
 LOGIN_URL = 'home'
 LOGIN_REDIRECT_URL = '/staff/profile'
 
-AUTO_LOGOUT = {'IDLE_TIME': 1000,
-               'MESSAGE': 'The session has expired. Please login again to continue.'
-               }
+# AUTO_LOGOUT = {'IDLE_TIME': 1000,
+#                'MESSAGE': 'The session has expired. Please login again to continue.'
+#                }
