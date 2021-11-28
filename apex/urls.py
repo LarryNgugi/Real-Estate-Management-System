@@ -39,7 +39,8 @@ staff_patterns = [
     path('update/house/<id>', views.updateHouse, name='update_house'),
     path('invoice', views.invoice, name='invoice'),
     path('create/invoice', views.createInvoice, name='create_invoice'),
-    path('view/invoices', views.updateInvoice, name='update_invoice')
+    path('view/invoices', views.updateInvoice, name='update_invoice'),
+    path('accounts', views.accounts, name='account'),
 ]
 
 urlpatterns = [

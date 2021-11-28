@@ -351,7 +351,8 @@ def invoice(request):
     if 'search' in request.GET:
         search_term = request.GET.get('search')
         invoice_list = invoice_list.filter(
-            Q(invoice_number__icontains=search_term) | Q(house_number__icontains=search_term))
+            Q(invoice_no__icontains=search_term) | Q(house_number__icontains=search_term)
+            | Q(title__icontains=search_term) | Q(phone_number__icontains=search_term))
 
     context = {
         "invoice_list": invoice_list, 'active': clicked, 'search_term': search_term, 'our_invoice': our_invoice
@@ -390,3 +391,9 @@ def updateInvoice(request):
         'invoice': our_invoice
     }
     return render(request, 'apex/admin/updateInvoice.html', context)
+
+
+def accounts(request):
+    context = {}
+
+    return render(request, 'apex/admin/accounts.html', context)
