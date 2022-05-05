@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-z8&dnjbr(*n+o&cplcks)f+1l3)kqzdpfdap73_)2_z4()-p%r
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'fa29-41-80-96-163.ngrok.io', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', '03db-41-80-96-0.ngrok.io', 'localhost']
 
 # Application definition
 
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'django.contrib.humanize',
     'bootstrap_datepicker_plus',
+    'django_crontab',
 ]
 
 MIDDLEWARE = [
@@ -148,3 +150,7 @@ LOGIN_REDIRECT_URL = '/staff/profile'
 # AUTO_LOGOUT = {'IDLE_TIME': 1000,
 #                'MESSAGE': 'The session has expired. Please login again to continue.'
 #                }
+
+CRONJOBS = [
+    ('11 11 4 * *', 'apex.corn.start')
+]

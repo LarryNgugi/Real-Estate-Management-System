@@ -34,7 +34,7 @@ def lipa_na_mpesa_online(number, amount):
         "PartyA": number,  # replace with your phone number to get stk push
         "PartyB": LipanaMpesaPpassword.Business_short_code,
         "PhoneNumber": number,  # replace with your phone number to get stk push
-        "CallBackURL": "https://sandbox.safaricom.co.ke/mpesa/",  # replace with ngrok https
+        "CallBackURL": "https://44f6-41-80-97-137.ngrok.io/admin/mpesa_api/mpesapayment/",  # replace with ngrok https
         "AccountReference": "Larry",
         "TransactionDesc": "Testing stk push"
     }
@@ -50,9 +50,9 @@ def register_urls(request):
     options = {"ShortCode": LipanaMpesaPpassword.Test_c2b_shortcode,
                "ResponseType": "Completed",
                # replace  with ngrok https
-               "ConfirmationURL": "https://9e97-41-80-97-147.ngrok.io/api/v1/c2b/confirmation",
+               "ConfirmationURL": "https://44f6-41-80-97-137.ngrok.io/api/v1/c2b/confirmation",
                # replace  with ngrok https
-               "ValidationURL": "https://9e97-41-80-97-147.ngrok.io/api/v1/c2b/confirmation"
+               "ValidationURL": "https://44f6-41-80-97-137.ngrok.io/api/v1/c2b/confirmation"
                }
     response = requests.post(api_url, json=options, headers=headers)
     return HttpResponse(response.text)

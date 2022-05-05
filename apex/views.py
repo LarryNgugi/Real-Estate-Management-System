@@ -364,10 +364,9 @@ def invoice(request):
 
 def createInvoice(request):
     datetime.datetime.now()
-    our_invoice = Invoice.objects.get(profile=request.profile)
     if request.method == 'POST':
 
-        form = CreateInvoiceForm(request.POST, instance=our_invoice)
+        form = CreateInvoiceForm(request.POST)
 
         if form.is_valid():
             title = form.cleaned_data['title']
@@ -380,7 +379,7 @@ def createInvoice(request):
             return HttpResponseRedirect('/staff/invoice')
 
     else:
-        form = CreateInvoiceForm(instance=our_invoice)
+        form = CreateInvoiceForm()
 
     return render(request, 'apex/admin/create-invoice.html', {'form': form})
 
@@ -397,3 +396,5 @@ def accounts(request):
     context = {}
 
     return render(request, 'apex/admin/accounts.html', context)
+
+
