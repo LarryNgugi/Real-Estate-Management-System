@@ -84,9 +84,9 @@ class Invoice(models.Model):
     title = models.CharField(max_length=30, blank=False, null=True)
     status = models.CharField(max_length=30, blank=False, null=True)
     house_number = models.CharField(max_length=50, blank=False, null=True)
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, max_length=100, blank=False, null=True, related_name="profile_name")
+    name = models.ForeignKey(Profile, on_delete=models.CASCADE, max_length=100, blank=False, null=True, related_name="profile_name")
     due_date = models.DateField(blank=False, null=True)
-    phone_number = models.CharField(max_length=15, blank=True, null=True)
+    phone_number = models.ForeignKey(Profile, on_delete=models.CASCADE,max_length=15, blank=True, null=True)
     amount = models.IntegerField(default=0, blank=False, null=False)
     invoice_no = models.CharField(max_length=500, default=increment_invoice_number, null=True, blank=True)
 

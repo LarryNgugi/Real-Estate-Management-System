@@ -35,6 +35,7 @@ LOCATION_CHOICES = [
 STATUS_CHOICES = [
     ('Occupied', 'Occupied'),
     ('Vacant', 'Vacant'),
+
 ]
 
 

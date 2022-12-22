@@ -398,3 +398,7 @@ def accounts(request):
     return render(request, 'apex/admin/accounts.html', context)
 
 
+def sendInvoice(request):
+    context = {}
+
+    return render(request, 'apex/admin/sendInvoice.html', context)

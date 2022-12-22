@@ -13,6 +13,7 @@ def send_reminders():
     profiles = Profile.objects.all()
     for profile in profiles:
         invoice_message = f'Dear, {profile.name}, Your rent payment of shs {profile.amount} is due on demand. ' \
-                          f'Please plan to pay before 5th using Buy Goods Till Number 717571. For queries call 0714389500 or email apexhomeskenya@gmail.com'
+                          f'Please plan to pay before 5th using Buy Goods Till Number 717571. For queries call ' \
+                          f'0714389500 or email apexhomeskenya@gmail.com '
         response = sms.send(invoice_message, [str(profile.phone_number)])
         print(response)
